@@ -15,5 +15,5 @@ class Blog extends Model
         'photo',
         'stautus',
     ];
-    // write here your relationship
+   
 }
