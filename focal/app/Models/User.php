@@ -47,4 +47,10 @@ class User extends Authenticatable
         'role_name' => 'array',
 
     ];
+
+     
+    public function user_info()
+    {
+        return $this->hasOne(Info_user::class);
+    }
 }
