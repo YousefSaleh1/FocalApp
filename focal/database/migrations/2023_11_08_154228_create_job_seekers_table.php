@@ -26,8 +26,7 @@ return new class extends Migration
             $table->enum('education_level',['highSchoolDiploma','collegeDegree','MasterDegree','A Ph.D']);
             $table->enum('current_Job_Status',['openToWork','emlpoyee']);
             $table->enum('salary_range');
-            $table->forignId('resume_id');
-            $table->softDeletes();
+           $table->softDeletes();
             $table->timestamps();
         });
     }
