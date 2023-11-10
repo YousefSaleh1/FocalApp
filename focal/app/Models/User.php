@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\BusinessOwner;
+use App\Models\Freelancer;
 
 
 class User extends Authenticatable
@@ -47,4 +49,22 @@ class User extends Authenticatable
         'role_name' => 'array',
 
     ];
+
+    //This relation, Links the User with their answers, so every User 
+    //have many answers.
+    public function UserAnswers() {
+
+        return $this->hasMany('Answer::class', 'user_id');
+    }
+
+    public function BusinessOwner() {
+
+        return $this->hasOne('BusinessOwner::class', 'user_id');
+    }
+
+    public function Freelancer() {
+
+        return $this->hasOne('Freelancer::class', 'user_id');
+    }
+
 }
