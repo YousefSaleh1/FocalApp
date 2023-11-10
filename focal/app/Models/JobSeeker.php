@@ -26,7 +26,6 @@ class JobSeeker extends Model
             'education_level',
             'current_status',
              'salary_range',
-            'resume_id' 
-    ];
-}
+            'resume_id', ];
 
+}
