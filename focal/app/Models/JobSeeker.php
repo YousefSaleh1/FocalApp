@@ -31,6 +31,7 @@ class JobSeeker extends Model
 {
     return $this->HasOne(Resume::class);
 }
+//r
 
 
 }
