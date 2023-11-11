@@ -15,4 +15,8 @@ class Blog extends Model
         'photo',
         'stautus',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }
