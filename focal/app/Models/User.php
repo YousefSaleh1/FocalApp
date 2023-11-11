@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-
+use App\Models\Complain;
 
 class User extends Authenticatable
 {
@@ -53,4 +53,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Info_user::class);
     }
+
+    public function complains()
+    {
+        return $this->hasMany(Complain::class,'user_id','id');
+    }
+
 }

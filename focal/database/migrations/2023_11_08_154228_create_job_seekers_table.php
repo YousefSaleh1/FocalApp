@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('job_seekers', function (Blueprint $table) {
             $table->id();
-            $table->forignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('job_title');
             $table->string('address');
             $table->date('Date_of_birth');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->enum('work_type',['full Time','partTime','Remotely','trainee']);
             $table->enum('education_level',['highSchoolDiploma','collegeDegree','MasterDegree','A Ph.D']);
             $table->enum('current_Job_Status',['openToWork','emlpoyee']);
-            $table->enum('salary_range');
+            $table->enum('salary_range',['one' , 'two']);
            $table->softDeletes();
             $table->timestamps();
         });

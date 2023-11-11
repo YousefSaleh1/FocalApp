@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('info_users', function (Blueprint $table) {
 
             $table->id();
-            $table->forignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('full_name');
             $table->enum('city',['Damascus','Aleppo','Homs','Daraa','Latakia','Tartus','Deir ez-Zor','Hama','Idlib','Al-Hasakah','Quneitra','Ar-Raqqah','As-Suwayda']);
             $table->string('phone_number');
