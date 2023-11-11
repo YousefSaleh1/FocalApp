@@ -26,6 +26,10 @@ class JobSeeker extends Model
             'education_level',
             'current_status',
              'salary_range',
-            'resume_id', ];
 
+             ]
+              public function resume()
+{
+    return $this->HasOne(Resume::class);
+}
 }
