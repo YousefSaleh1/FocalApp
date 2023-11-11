@@ -27,7 +27,6 @@ class JobSeeker extends Model
     'education_level',
     'current_status',
     'salary_range',
-    'resume_id', 
   ];
 
   //This relation, Links the job Seeker, with it's own user information.
@@ -36,5 +35,9 @@ class JobSeeker extends Model
     return $this->belongsTo(User::class,'user_id');
   }
 
+             ]
+              public function resume()
+{
+    return $this->HasOne(Resume::class);
 }
-
+}

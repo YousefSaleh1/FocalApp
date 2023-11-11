@@ -77,4 +77,10 @@ class User extends Authenticatable
         return $this->hasOne(JopSeeker::class, 'user_id');
     }
 
+
+     
+    public function user_info()
+    {
+        return $this->hasOne(Info_user::class);
+    }
 }
