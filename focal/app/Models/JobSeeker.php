@@ -35,9 +35,9 @@ class JobSeeker extends Model
     return $this->belongsTo(User::class,'user_id');
   }
 
-             ]
-              public function resume()
-{
-    return $this->HasOne(Resume::class);
+    public function resume()
+        {
+            return $this->HasOne(Resume::class);
+        }
 }
-}
+
