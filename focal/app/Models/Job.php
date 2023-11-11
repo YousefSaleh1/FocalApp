@@ -37,14 +37,14 @@ class Job extends Model
     //This relation, Links the created job, with it's BusinessOwner.
     public function owner(){
 
-        return $this->belongsTo('BusinessOwner::class','owner_id');
+        return $this->belongsTo(BusinessOwner::class,'business_owner_id');
     }
 
     //This relation, Links the Job with their questions, so every Job 
     //have many Question.
     public function questions() {
 
-        return $this->hasMany('Question::class', 'job_id');
+        return $this->hasMany(Question::class, 'job_id');
     }
       
 

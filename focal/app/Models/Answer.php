@@ -20,12 +20,12 @@ class Answer extends Model
      //This relation, Links the Answer, with it's Question.
      public function question(){
 
-        return $this->belongsTo('Question::class','question_id');
+        return $this->belongsTo(Question::class,'question_id');
     }
 
     //This relation, Links the Answer, with it's User.
     public function user(){
 
-        return $this->belongsTo('User::class','user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 }

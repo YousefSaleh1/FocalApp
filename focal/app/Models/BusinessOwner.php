@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Job;
+use App\Models\User;
 
 class BusinessOwner extends Model
 {
@@ -26,13 +27,13 @@ class BusinessOwner extends Model
     //have many created jobs.
     public function jobs() {
 
-        return $this->hasMany('Job::class', 'owner_id');
+        return $this->hasMany(Job::class, 'business_owner_id');
     }
 
-     //This relation, Links the created job, with it's BusinessOwner.
+     //This relation, Links the BusinessOwner, with it's own user information.
      public function User(){
 
-        return $this->belongsTo('User::class','user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
 

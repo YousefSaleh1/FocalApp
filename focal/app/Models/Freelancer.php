@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Freelancer extends Model
 {
@@ -16,10 +17,10 @@ class Freelancer extends Model
 
 
 
-       //This relation, Links the created job, with it's BusinessOwner.
+       //This relation, Links the Freelancer, with it's own user information.
        public function User(){
 
-        return $this->belongsTo('User::class','user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
 
