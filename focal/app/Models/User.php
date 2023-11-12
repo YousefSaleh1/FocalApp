@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use newrelic\DistributedTracePayload;
 use Spatie\Permission\Traits\HasRoles;
 
 use App\Models\Complain;
@@ -55,7 +56,7 @@ class User extends Authenticatable
 
     ];
 
-    //This relation, Links the User with their answers, so every User 
+    //This relation, Links the User with their answers, so every User
     //have many answers.
     public function UserAnswers() {
 
@@ -73,7 +74,7 @@ class User extends Authenticatable
 
         return $this->hasOne(Freelancer::class, 'user_id');
     }
-    
+
     //This relation, Links the JopSeeker in user table, with the JopSeeker table.
     public function JopSeeker() {
 
@@ -81,7 +82,7 @@ class User extends Authenticatable
     }
 
 
-     
+
     public function user_info()
     {
         return $this->hasOne(Info_user::class);
@@ -90,6 +91,9 @@ class User extends Authenticatable
     public function complains()
     {
         return $this->hasMany(Complain::class,'user_id','id');
+    }
+    public function blogger(){
+        return $this->hasOne(Blogger::class,'user_id');
     }
 
 }

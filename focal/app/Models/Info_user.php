@@ -11,7 +11,7 @@ class Info_user extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = 
+    protected $fillable =
     [
        'id',
        'user_id',
@@ -23,9 +23,14 @@ class Info_user extends Model
        'behanc_account',
        'profile_photo',
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function city(){
+
+        return $this->belongsTo(City::class,'city_id');
     }
 }

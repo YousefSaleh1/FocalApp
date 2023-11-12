@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('age_range',['20-25','25-30','30-35','35-40']);
             $table->enum('gender',['male','female','no_profrence']);
             $table->enum('job_type',['full Time','partTime','Remotely','trainee']);
-            $table->enum('city',['Aleppo','Latakia','Homs','Hama','Tartus','Damascus','Rif Dimashq','Deir ez-Zor','Raqqa','Hasakah','Daraa','Quneitra','Al-Suwayda','Idlib','Foreign city']);
+            $table->foreignId('city_id')->constrained('city')->cascadeOnDelete();
             $table->string('address');
             $table->enum('work_hour',['One hour','Tow hours','Three hours','Four hours','Five hours','Six hours','Seven hours','Eight hours']);
             $table->enum('salary_range',['500000-10000000','10000000-1500000','1500000-2000000','2000000-2500000']);
