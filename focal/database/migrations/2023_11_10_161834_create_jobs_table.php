@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('business_owners_id')->constrained('business_owners');
+            $table->foreignId('business_owners_id')->constrained('business_owners')->cascadeOnDelete();
             $table->string('job_title');
             $table->enum('job_role',['BackEnd Dev','FrontEnd Dev','Graphics Designer','Content Creator','Digital Marketing']);
             $table->enum('job_level',['Beginner','Junior','Mid','Senior','Expert']);
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->enum('work_hour',['One hour','Tow hours','Three hours','Four hours','Five hours','Six hours','Seven hours','Eight hours']);
             $table->enum('salary_range',['500000-10000000','10000000-1500000','1500000-2000000','2000000-2500000']);
             $table->boolean('help');
-            $table->text('job_discription');
+            $table->text('job_description');
             $table->string('job_requirement');
             $table->enum('status',['Active','Closed','Waiting']);
             $table->text('cancel_desc');

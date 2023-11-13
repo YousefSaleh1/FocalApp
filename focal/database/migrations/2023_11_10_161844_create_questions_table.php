@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->text('question');
-            $table->foreignId('job_id')->constrained('jobs');
+            $table->foreignId('job_id')->constrained('jobs')->cascadeOnDelete();
             $table->timestamps();
         });
     }

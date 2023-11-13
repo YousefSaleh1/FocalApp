@@ -76,11 +76,10 @@ class User extends Authenticatable
     }
 
     //This relation, Links the JopSeeker in user table, with the JopSeeker table.
-    public function JopSeeker() {
+    public function JobSeeker() {
 
-        return $this->hasOne(JopSeeker::class, 'user_id');
+        return $this->hasOne(JobSeeker::class, 'user_id');
     }
-
 
 
     public function user_info()
@@ -94,6 +93,10 @@ class User extends Authenticatable
     }
     public function blogger(){
         return $this->hasOne(Blogger::class,'user_id');
+    }
+
+    public function wallet(){
+        return $this->hasOne(Wallet::class,'user_id');
     }
 
 }

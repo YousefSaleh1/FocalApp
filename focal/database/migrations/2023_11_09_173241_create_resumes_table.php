@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_seeker_id')->constrained('job_seekers');
+            $table->foreignId('job_seeker_id')->constrained('job_seekers')->cascadeOnDelete();
             $table->text('certificates/training_courses')->nullable();
             $table->text('experience')->nullable();
             $table->string('skills')->nullable();

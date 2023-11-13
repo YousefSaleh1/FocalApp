@@ -13,7 +13,6 @@ class Info_user extends Model
 
     protected $fillable =
     [
-       'id',
        'user_id',
        'full_name',
        'city',

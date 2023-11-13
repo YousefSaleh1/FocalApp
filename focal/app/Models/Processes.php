@@ -21,5 +21,12 @@ class Processes extends Model
         'receiver_id_number',
         'password_vorifi'
     ];
+
+
+    public function wallet(){
+
+        return $this->belongsTo(Wallet::class,'wallet_id');
+    }
+
+
 }
-  return $this->belongsTo(Walets::class);
