@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('processes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('walet_id')->constrained('walets')->cascadeOnDelete();
+            $table->foreignId('wallet_id')->constrained('wallets')->cascadeOnDelete();
             $table->string('contact_number');
             $table->string('amount');
             $table->string('sender_name');
             $table->string('sender_id_number');
-            $table->enum('payment_method',['Withdraw $$ Deposit']);
+            $table->enum('payment_method',['Withdraw','Deposit']);
             $table->string('receipt_number');
             $table->string('address');
             $table->string('receiver_name');

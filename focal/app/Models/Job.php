@@ -12,7 +12,7 @@ class Job extends Model
     use HasFactory;
 
     protected $fillable = [
-        
+
         'business_owner_id',
         'job_title',
         'job_role',
@@ -27,11 +27,12 @@ class Job extends Model
         'address',
         'work_hour',
         'salary_range',
-        'job_discription',
+        'help',
+        'job_description',
         'job_requirement',
         'status',
         'cancel_desc',
-       
+
     ];
 
     //This relation, Links the created job, with it's BusinessOwner.
@@ -40,12 +41,16 @@ class Job extends Model
         return $this->belongsTo(BusinessOwner::class,'business_owner_id');
     }
 
-    //This relation, Links the Job with their questions, so every Job 
+    //This relation, Links the Job with their questions, so every Job
     //have many Question.
     public function questions() {
 
         return $this->hasMany(Question::class, 'job_id');
     }
-      
+
+    public function city(){
+
+        return $this->belongsTo(City::class,'city_id');
+    }
 
 }

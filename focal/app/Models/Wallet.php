@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Walets extends Model
+class Wallet extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -13,6 +13,15 @@ class Walets extends Model
         'current',
         'point'
     ];
-    
+
+
+    public function processes(){
+
+        return $this->hasMany(Processes::class,'wallet_id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
+
 }
-   return $this->hasMany(Processes::class);

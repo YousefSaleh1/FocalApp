@@ -14,7 +14,6 @@ class BusinessOwner extends Model
         'user_id',
         'company_name',
         'company_field',
-        'city',
         'company_size',
         'year_founded',
         'company_logo',
@@ -23,7 +22,7 @@ class BusinessOwner extends Model
         'website',
     ];
 
-    //This relation, Links the BusinessOwner with their created jobs, so every BusinessOwner 
+    //This relation, Links the BusinessOwner with their created jobs, so every BusinessOwner
     //have many created jobs.
     public function jobs() {
 
@@ -36,6 +35,9 @@ class BusinessOwner extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
+    public function city(){
 
+        return $this->belongsTo(City::class,'city_id');
+    }
 
 }

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('info_users', function (Blueprint $table) {
 
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('full_name');
-            $table->enum('city',['Damascus','Aleppo','Homs','Daraa','Latakia','Tartus','Deir ez-Zor','Hama','Idlib','Al-Hasakah','Quneitra','Ar-Raqqah','As-Suwayda']);
+            $table->foreignId('city_id')->constrained('city')->cascadeOnDelete();
             $table->string('phone_number');
             $table->string('facebook_account');
             $table->string('linked_in_account');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('profile_photo');
             $table->softDeletes();
             $table->timestamps();
-            
+
         });
     }
 

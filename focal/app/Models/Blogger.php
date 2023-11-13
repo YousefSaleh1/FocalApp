@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Blog extends Model
+class Blogger extends Model
 {
     use HasFactory;
+
     protected $fillable=[
         'user_id',
-        'title',
-        'body',
-        'photo',
-        'status',
     ];
 
-    public function categorizable(){
-        return $this->morphTo();
+    public function User(){
+
+        return $this->belongsTo(User::class,'user_id');
     }
+
 }

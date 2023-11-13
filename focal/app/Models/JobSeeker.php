@@ -13,7 +13,6 @@ class JobSeeker extends Model
     use SoftDeletes;
 
   protected $fillable = [
-    'id',
     'user_id',
     'job_title',
     'address',
