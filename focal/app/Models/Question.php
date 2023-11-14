@@ -18,9 +18,9 @@ class Question extends Model
     ];
 
     //This relation, Links the Question, with it's Job.
-    public function job(){
+    public function companyjob(){
 
-        return $this->belongsTo(Job::class,'company_job_id' , 'id');
+        return $this->belongsTo(CompanyJob::class,'company_job_id' , 'id');
     }
 
 
