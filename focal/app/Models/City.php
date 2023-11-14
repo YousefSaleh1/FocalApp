@@ -15,10 +15,10 @@ class City extends Model
 
     public function job()
     {
-        return $this->hasMany(Job::class,'city_id');
+        return $this->hasMany(Job::class,'city_id' , 'id');
     }
-    public function infoUser(){
-        return $this->hasMany(Info_user::class,'city_id');
+    public function userinfo(){
+        return $this->hasMany(User_info::class,'city_id' ,'id');
     }
 
 }

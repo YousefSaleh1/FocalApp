@@ -4,10 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\BusinessOwner;
-use App\Models\Question;
 
-class Job extends Model
+class CompanyJob extends Model
 {
     use HasFactory;
 
@@ -23,7 +21,7 @@ class Job extends Model
         'age_range',
         'gender',
         'job_type',
-        'city',
+        'city_id',
         'address',
         'work_hour',
         'salary_range',
@@ -45,12 +43,11 @@ class Job extends Model
     //have many Question.
     public function questions() {
 
-        return $this->hasMany(Question::class, 'job_id');
+        return $this->hasMany(Question::class, 'company_job_id' , 'id');
     }
 
     public function city(){
 
-        return $this->belongsTo(City::class,'city_id');
+        return $this->belongsTo(City::class,'city_id' , 'id');
     }
-
 }

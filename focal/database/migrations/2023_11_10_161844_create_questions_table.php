@@ -13,8 +13,17 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('company_job_id'); // Define an unsigned integer column for the foreign key.
+
+            // Define the foreign key constraint.
+            $table->foreign('company_job_id')
+                  ->references('id') // Referencing the 'id' column.
+                  ->on('company_jobs')    // In the 'users' table.
+                  ->onDelete('cascade');
+            //$table->foreignId('company_job_id')->constrained('company_jobs')->cascadeOnDelete();
             $table->text('question');
-            $table->foreignId('job_id')->constrained('jobs')->cascadeOnDelete();
+            $table->charset = 'utf8';
+            $table->collation = 'utf8_unicode_ci';
             $table->timestamps();
         });
     }

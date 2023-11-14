@@ -13,16 +13,11 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('user')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('title');
             $table->string('body');
             $table->string('photo');
             $table->enum('status',['draft','post']);
-
-            $table->unsignedBigInteger('categorizable_id');
-            $table->string('categorizable_type');
-
-
             $table->timestamps();
         });
     }

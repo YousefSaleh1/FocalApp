@@ -16,7 +16,8 @@ class Blog extends Model
         'status',
     ];
 
-    public function categorizable(){
-        return $this->morphTo();
+    public function categories()
+    {
+        return $this->morphToMany(Category::class, 'categorizable');
     }
 }

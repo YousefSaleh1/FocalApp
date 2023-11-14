@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Job;
 use App\Models\User;
-
+use App\Models\CompanyJob;
 class BusinessOwner extends Model
 {
     use HasFactory;
@@ -24,9 +23,9 @@ class BusinessOwner extends Model
 
     //This relation, Links the BusinessOwner with their created jobs, so every BusinessOwner
     //have many created jobs.
-    public function jobs() {
+    public function companyjobs() {
 
-        return $this->hasMany(Job::class, 'business_owner_id');
+        return $this->hasMany(CompanyJob::class, 'business_owner_id');
     }
 
      //This relation, Links the BusinessOwner, with it's own user information.

@@ -13,7 +13,8 @@ class Category extends Model
         'title',
 ];
 
-public function blog(){
-    return $this->morphMany(Blog::class,'categorizable');
-}
+public function blogs()
+    {
+        return $this->morphedByMany(Blog::class, 'categorizable');
+    }
 }

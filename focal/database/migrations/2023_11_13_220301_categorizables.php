@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wallets', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->decimal('current');
-            $table->integer('point');
+        Schema::create('categorizables', function (Blueprint $table) {
 
+            $table->id();
+            $table->foreignId('blog_id')->constrained('blogs')->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->timestamps();
-        });
+    });
     }
 
     /**
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('walets');
+        Schema::dropIfExists('categorizables');
     }
 };
