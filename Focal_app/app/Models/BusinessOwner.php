@@ -14,7 +14,6 @@ class BusinessOwner extends Model
         'user_id',
         'company_name',
         'company_field',
-        'city',
         'company_size',
         'year_founded',
         'company_logo',

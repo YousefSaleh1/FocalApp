@@ -14,21 +14,21 @@ class CitiesSeeder extends Seeder
     public function run(): void
     {
         $cities = [
-            ['name' => 'Aleppo '],
-            ['name' => ' Latakia'],
-            ['name' => ' Homs'],
-            ['name' => ' Hama'],
-            ['name' => ' Tartus'],
-            ['name' => ' Damascus'],
-            ['name' => ' Rif Dimashq'],
-            ['name' => ' Deir ez-Zor'],
-            ['name' => ' Raqqa'],
-            ['name' => ' Hasakah'],
-            ['name' => ' Daraa'],
-            ['name' => ' Quneitra'],
-            ['name' => ' Al-Suwayda'],
-            ['name' => ' Idlib'],
-            ['name' => 'Other'],
+            ['city_name' => 'Aleppo '],
+            ['city_name' => ' Latakia'],
+            ['city_name' => ' Homs'],
+            ['city_name' => ' Hama'],
+            ['city_name' => ' Tartus'],
+            ['city_name' => ' Damascus'],
+            ['city_name' => ' Rif Dimashq'],
+            ['city_name' => ' Deir ez-Zor'],
+            ['city_name' => ' Raqqa'],
+            ['city_name' => ' Hasakah'],
+            ['city_name' => ' Daraa'],
+            ['city_name' => ' Quneitra'],
+            ['city_name' => ' Al-Suwayda'],
+            ['city_name' => ' Idlib'],
+            ['city_name' => 'Other'],
 
         ];
 

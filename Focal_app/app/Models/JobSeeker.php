@@ -19,7 +19,6 @@ class JobSeeker extends Model
     'address',
     'Date_of_birth',
     'gender',
-    'photo',
     'field_of_work',
     'job_level',
     'experience',
