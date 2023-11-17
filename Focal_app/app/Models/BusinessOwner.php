@@ -16,7 +16,6 @@ class BusinessOwner extends Model
         'company_field',
         'company_size',
         'year_founded',
-        'company_logo',
         'responsible_job_role',
         'company_number',
         'website',
