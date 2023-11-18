@@ -34,25 +34,9 @@ class JobSeekerController extends Controller
      */
     public function store( StoreJobSeeker $request)
     {
-        $validator = $request->validated();
-            if($validator->fails()){
-            return $this ->apiResponse(null, "",$validator->errors(),400);
-        }
+        $validator_data = $request->validated();
 
-        $jobseeker=JobSeeker::create([
-            'user_id'         => Auth::User()->id ,
-            'job_title'       =>$request->job_title,
-            'address'         =>$request->address,
-            'Date_of_birth'   =>$request->Date_of_birth,
-            'gender'          =>$request->gender,
-            'field_of_work'   =>$request->field_of_work,
-            'job_level'       =>$request->job_level,
-            'experience'      => $request->experience,
-            'work_type'       => $request-> work_type,
-            'education_level' => $request->education_level,
-            'current_Job_Status'  => $request->current_Job_Status,
-            'salary_range'    => $request->salary_range,
-        ]);
+        $jobseeker = JobSeeker::create($validator_data);
 
         if($jobseeker){
             return $this->apiResponse(new JobSeekerResource($jobseeker), "" ,'the jobseeker created successfully',200);
@@ -90,30 +74,10 @@ class JobSeekerController extends Controller
             return $this->apiResponse(null, "",'the jobseeker not found',404);
         }
 
-        $validator = $request->validated();
-        if($validator->fails()){
-            return $this ->apiResponse(null, "",$validator->errors(),400);
-        }
+        $validator_data = $request->validated();
 
-        $job_seeker= $jobseeker ->update([
-            'user_id'         => Auth::User()->id ,
-            'job_title'       =>$request->job_title,
-            'address'         =>$request->address,
-            'Date_of_birth'   =>$request->Date_of_birth,
-            'gender'          =>$request->gender,
-            'field_of_work'   =>$request->field_of_work,
-            'job_level'       =>$request->job_level,
-            'experience'      => $request->experience,
-            'work_type'       => $request-> work_type,
-            'education_level' => $request->education_level,
-            'current_Job_Status'  => $request->current_Job_Status,
-            'salary_range'    => $request->salary_range,
-        ]);
-
-        if($job_seeker){
-            return $this->apiResponse(new JobSeekerResource($jobseeker),"" ,'the jobseeker updated',200);
-        }
-        return $this->apiResponse(null,"" ,'the jobseeker not updated',400);
+        $jobseeker ->update( $validator_data);
+        return $this->apiResponse(new JobSeekerResource($jobseeker),"" ,'the jobseeker updated',200);
 
     }
 
