@@ -9,6 +9,6 @@ trait UploadPhotoTrait {
      {
      $photo =time() .'.'. $request->file($fileName)->getClientOriginalName();
      $path = $request->file($fileName)->storeAs($folderName,$photo,'photos');
-     return $path
+     return $path;
     }
 }
