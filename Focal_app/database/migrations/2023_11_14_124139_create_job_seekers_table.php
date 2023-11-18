@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('address');
             $table->date('Date_of_birth');
             $table->enum('gender',['male','female','no_profrence']);
-            $table->string('photo');
             $table->enum('field_of_work',['UI/UX','graphicDesign','flutter','frontend_developer','digital_marketing','backend_developer']);
             $table->enum('job_level',['beginner','junior','mid','Senior','expert']);
             $table->string('experience');
