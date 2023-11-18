@@ -1,6 +1,9 @@
 <?php
 
+namespace App\Http\Controllers\API;
+
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\UserinfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +26,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
+Route::resource('user_info',UserinfoController::class);
 
 // Route::resource('roles', RoleController::class);
