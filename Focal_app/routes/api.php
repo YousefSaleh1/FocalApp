@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\API\AnswerController;
 use App\Http\Controllers\API\AnswersController;
+use App\Http\Controllers\API\FreelancerController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\JobSeekerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,15 +36,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
     });
 
-    
 
-   
+Route::apiResource('/freelancer', FreelancerController::class);
 
+// Route::resource('roles', RoleController::class);
 
+Route::group(['middleware' => ['auth:sanctum']], function (){
+    Route::resource('jobseeker',JobSeekerController::class);
 
+});
 
-
-
- 
-
- //Route::resource('Answers', AnswerController::class);
