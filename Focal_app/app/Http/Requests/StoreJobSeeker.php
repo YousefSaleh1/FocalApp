@@ -13,7 +13,7 @@ class StoreJobSeeker extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,6 +24,7 @@ class StoreJobSeeker extends FormRequest
     public function rules(): array
     {
         return [
+            'user_id'       => ["required","integer",Rule::exists('users','id')],
             'job_title'      =>["required","string","max:255"],
             'address'         =>["required","string","max:255"],
             'Date_of_birth'   =>["required","date"],
