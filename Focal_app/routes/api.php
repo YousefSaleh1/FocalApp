@@ -16,9 +16,9 @@ use App\Http\Controllers\API\JopController;
 use App\Http\Controllers\JobSeekerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\CityController;
 use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\CategoryController;
-
 
 
 
@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
  Route::resource('businessowner', BusinessOwnerController::class);
 });
 
-
+Route::resource('city', CityController::class);
 // Route::resource('roles', RoleController::class);
 
 
