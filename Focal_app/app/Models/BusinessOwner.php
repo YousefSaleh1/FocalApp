@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Job;
 use App\Models\User;
 
+
 class BusinessOwner extends Model
 {
     use HasFactory;
+    protected $table = 'business_owners';
+
     protected $fillable = [
         'user_id',
         'company_name',
