@@ -75,7 +75,7 @@ class User extends Authenticatable
     }
 
     //This relation, Links the JopSeeker in user table, with the JopSeeker table.
-    public function JopSeeker() {
+    public function JobSeeker() {
 
         return $this->hasOne(JobSeeker::class, 'user_id');
     }
