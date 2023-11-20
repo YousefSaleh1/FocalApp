@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class ResumeRequest extends FormRequest
 {
@@ -22,10 +24,12 @@ class ResumeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'certificates_training_courses'=> 'required|string|max:255',
-            'experience'                   => 'required|string|max:255',
-            'skills'                       => 'required|string|max:255',
-            'languages'                    => 'required|string|max:255',
+            'job_seeker_id'=> ["required", "integer", Rule::exists('job_seekers','id')],
+            'user_id'             =>["required", "integer", Rule::exists('users','id')],
+            'certificates_training_courses' =>["required","string","max:255"],
+            'experience'                    =>["required","string","max:255"],
+            'skills'                        =>["required","string","max:255"],
+            'languages'                     =>["required","string","max:255"],
         ];
     }
 }

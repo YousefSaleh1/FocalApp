@@ -39,28 +39,15 @@ return  $this->apiResponse($resumes,'$token','ok',200);
     
     public function store(ResumeRequest $request)
 {
-    $user = Auth::user();
-    
-    // Assuming you have a 'jobSeeker' method in your User model to access the associated JobSeeker
-    $jobSeeker = $user->JobSeeker;
+    $validator_data = $request->validated();
 
-    if (!$jobSeeker) {
-        // Handle the case where the user doesn't have an associated job seeker profile
-        return $this->apiResponse(null,'', 'the resume not saved', 400);
+    $resume = Resume::create($validator_data);
+
+    if($resume){
+        return $this->apiResponse(new ResumeResources($resume), "" ,'the resume created successfully',200);
     }
-
-    $validated = $request->validated();
-
-    $resume = Resume::create([
-        'job_seeker_id' => $jobSeeker->id,
-        'certificates_training_courses' => $request->certificates_training_courses,
-        'experience' => $request->experience,
-        'skills' => $request->skills,
-        'languages' => $request->languages,
-    ]);
-
-    // Handle the response or redirect as needed
-    return $this->apiResponse($resume, '', 'Resume saved successfully', 200);
+    return $this->apiResponse(null,"" ,'the resume not added',400);
+    
 }
     /**
      * Display the specified resource.
@@ -83,7 +70,6 @@ return  $this->apiResponse($resumes,'$token','ok',200);
      */
     public function update(ResumeRequest $request, string $id)
     {
-    
     $resume = Resume::find($id);
     if(!$resume){
      return $this->apiResponse(null,'','the resume not found',404);
@@ -105,6 +91,5 @@ return  $this->apiResponse($resumes,'$token','ok',200);
         $resume->delete();
 
         return $this->apiResponse($resume,'', 'Resume deleted successfully', 200);
-
     }
 }
