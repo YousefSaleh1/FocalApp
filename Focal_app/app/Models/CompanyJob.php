@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\BusinessOwner;
 use App\Models\Question;
 
-class Job extends Model
+class CompanyJob extends Model
 {
     use HasFactory;
-
+protected $table='company_jobs';
     protected $fillable = [
-
-        'business_owner_id',
+        'business_owners_id',
         'job_title',
         'job_role',
         'job_level',
@@ -24,6 +23,7 @@ class Job extends Model
         'gender',
         'job_type',
         'city_id',
+        'help',
         'address',
         'work_hour',
         'salary_range',
