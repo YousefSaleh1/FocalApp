@@ -45,6 +45,10 @@ Route::middleware('auth:sanctum')->group(function () {
     
 )};
 
+    Route::get('/index/{jop_id}', [QuestionController::class, 'index']);
+    Route::post('/storeQuestion/{answer_id}', [QuestionController::class, 'storeQuestion']);
+    Route::get('/showQuestion/{answer_id}', [QuestionController::class, 'showQuestion']);
+
 
 Route::group(['middleware'=> ['auth:sanctum']], function () {
     
