@@ -4,12 +4,16 @@ use App\Http\Controllers\API\UserinfoController;
 use App\Http\Controllers\API\AnswersController;
 use App\Http\Controllers\API\FreelancerController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\ResumeController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\API\JopController;
 use App\Http\Controllers\JobSeekerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\CategoryController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +34,7 @@ Route::post('/register',[AuthController::class,'register']);
 Route::POST('/login', [AuthController::class, 'login'])->name('login');
 
 
+
 Route::resource('user_info',UserinfoController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -38,9 +43,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/storeAnswer/{question_id}', [AnswersController::class, 'storeAnswer']);
     Route::get('/showAnswer/{question_id}', [AnswersController::class, 'showAnswer']);
     
+)};
 
 
-    });
+Route::group(['middleware'=> ['auth:sanctum']], function () {
+    
+    Route::resource('resumes',ResumeController::class);
+
+});
 
 Route::apiResource('/freelancer', FreelancerController::class);
 
