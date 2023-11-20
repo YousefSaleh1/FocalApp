@@ -16,12 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('company_name');
             $table->string('company_field');
-            $table->enum('city', ['Aleppo','Latakia','Homs','Hama','Tartus','Damascus','Rif Dimashq','Deir ez-Zor','Raqqa','Hasakah','Daraa','Quneitra','Al-Suwayda','Idlib','Foreign city']);
             $table->string('company_size')->nullable();
             $table->date('year_founded')->nullable();
-            $table->string('company_logo');
             $table->string('responsible_job_role');
-            $table->integer('company_number');
+            $table->bigInteger('company_number');
             $table->string('website');
             $table->softDeletes();
             $table->timestamps();
