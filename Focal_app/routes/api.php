@@ -5,6 +5,10 @@ use App\Http\Controllers\API\AnswersController;
 use App\Http\Controllers\API\FreelancerController;
 use App\Http\Controllers\API\AuthController;
 
+use App\Http\Controllers\API\ProcessController;
+use App\Http\Controllers\API\WalletController;
+
+
 use App\Models\BusinessOwner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +18,7 @@ use App\Http\Controllers\API\ResumeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\API\JopController;
 use App\Http\Controllers\JobSeekerController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CityController;
@@ -42,6 +47,15 @@ Route::POST('/login', [AuthController::class, 'login'])->name('login');
 
 
 
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/Wallet/{userid}', [WalletController::class, 'usercredit']);
+    Route::post('/Wallet/{userid}', [WalletController::class, 'createwallet']);
+    Route::post('/Wallet/AddToWallet/{walletid}', [ProcessController::class, 'AddToCredit']);
+    Route::post('/Wallet/WithdrawFromWallet/{walletid}', [ProcessController::class, 'WithdrawFromCredit']);
+});
+
+
 Route::resource('user_info',UserinfoController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -66,6 +80,7 @@ Route::group(['middleware'=> ['auth:sanctum']], function () {
 Route::apiResource('/freelancer', FreelancerController::class);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
 
  Route::resource('businessowner', BusinessOwnerController::class);
 });
