@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\UserinfoController;
 use App\Http\Controllers\API\AnswersController;
 use App\Http\Controllers\API\FreelancerController;
 use App\Http\Controllers\API\AuthController;
@@ -28,6 +29,8 @@ Route::post('/register',[AuthController::class,'register']);
 Route::POST('/login', [AuthController::class, 'login'])->name('login');
 
 
+Route::resource('user_info',UserinfoController::class);
+
 Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/ShowJobQandA/{jop_id}', [AnswersController::class, 'ShowJobQandA']);
@@ -37,7 +40,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     });
-
 
 Route::apiResource('/freelancer', FreelancerController::class);
 
