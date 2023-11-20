@@ -4,6 +4,12 @@ use App\Http\Controllers\API\UserinfoController;
 use App\Http\Controllers\API\AnswersController;
 use App\Http\Controllers\API\FreelancerController;
 use App\Http\Controllers\API\AuthController;
+
+use App\Models\BusinessOwner;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\BusinessOwnerController;
+
 use App\Http\Controllers\API\ResumeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\API\JopController;
@@ -12,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\CategoryController;
+
 
 
 
@@ -57,6 +64,12 @@ Route::group(['middleware'=> ['auth:sanctum']], function () {
 });
 
 Route::apiResource('/freelancer', FreelancerController::class);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
+ Route::resource('businessowner', BusinessOwnerController::class);
+});
+
 
 // Route::resource('roles', RoleController::class);
 
