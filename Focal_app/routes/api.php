@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\GoogleAuthController;
+use App\Http\Controllers\API\SocialiteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +27,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+
+Route::get('login/{provider}', [SocialiteController::class, 'redirectToProvider']);
+Route::get('login/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
 
 // Route::resource('roles', RoleController::class);

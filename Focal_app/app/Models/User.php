@@ -103,4 +103,8 @@ class User extends Authenticatable
         return $this->hasOne(Bloger::class, 'user_id', 'id');
     }
 
+    public function providers()
+    {
+        return $this->hasMany(Provider::class, 'user_id', 'id');
+    }
 }

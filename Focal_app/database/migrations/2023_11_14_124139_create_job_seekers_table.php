@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('job_seekers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-
             $table->string('job_title');
             $table->string('address');
             $table->date('Date_of_birth');
             $table->enum('gender',['male','female','no_profrence']);
-            $table->string('photo');
             $table->enum('field_of_work',['UI/UX','graphicDesign','flutter','frontend_developer','digital_marketing','backend_developer']);
             $table->enum('job_level',['beginner','junior','mid','Senior','expert']);
             $table->string('experience');
