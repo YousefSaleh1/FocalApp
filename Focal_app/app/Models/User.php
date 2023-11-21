@@ -20,7 +20,7 @@ use App\Models\JobSeeker;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable ,HasRoles;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -103,4 +103,9 @@ class User extends Authenticatable
         return $this->hasOne(Bloger::class, 'user_id', 'id');
     }
 
+
+    public function providers()
+    {
+        return $this->hasMany(Provider::class, 'user_id', 'id');
+    }
 }
