@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('walet_id')->constrained('walets');
             $table->string('contact_number');
-            $table->string('amount');
+            $table->integer('amount');
             $table->string('sender_name');
             $table->string('sender_id_number');
             $table->enum('payment_method',['Withdraw','Deposit']);

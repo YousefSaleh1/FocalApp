@@ -20,7 +20,7 @@ use App\Models\JobSeeker;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable ,HasRoles;
-
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -75,7 +75,7 @@ class User extends Authenticatable
     }
 
     //This relation, Links the JopSeeker in user table, with the JopSeeker table.
-    public function JopSeeker() {
+    public function JobSeeker() {
 
         return $this->hasOne(JobSeeker::class, 'user_id');
     }
