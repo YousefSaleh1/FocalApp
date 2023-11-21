@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\Http\Controllers\Controller;
+use App\Http\Resources\BlogerResource;
+use App\Models\Bloger;
+use Illuminate\Http\Request;
+
+class BlogerController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $blogers = Bloger::all();
+        return response()->json(BlogerResource::collection($blogers), 200);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $bloger = new Bloger;
+        $bloger->id = $request->id;
+        $bloger->save();
+        return response()->json($bloger, 200);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Bloger $bloger)
+    {
+        return response()->json(new BlogerResource($bloger), 200);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Bloger $bloger)
+    {
+        $bloger->update([
+            'user_id' => $request->user_id,
+        ]);
+        return response()->json($bloger, 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Bloger $bloger)
+    {
+        $bloger->delete();
+        return response()->json($bloger, 200);
+    }
+}
