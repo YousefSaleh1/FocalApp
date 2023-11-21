@@ -19,9 +19,12 @@ use App\Http\Controllers\JobSeekerController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\API\CityController;
 use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\CategoryController;
+
+
 
 
 
@@ -55,7 +58,21 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-Route::resource('user_info', UserinfoController::class);
+
+Route::resource('user_info',UserinfoController::class);
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/ShowJobQandA/{jop_id}', [AnswersController::class, 'ShowJobQandA']);
+    Route::post('/storeAnswer/{question_id}', [AnswersController::class, 'storeAnswer']);
+    Route::get('/showAnswer/{question_id}', [AnswersController::class, 'showAnswer']);
+
+});
+
+    Route::get('/index/{jop_id}', [QuestionController::class, 'index']);
+    Route::post('/storeQuestion/{answer_id}', [QuestionController::class, 'storeQuestion']);
+    Route::get('/showQuestion/{answer_id}', [QuestionController::class, 'showQuestion']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -87,6 +104,21 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 Route::resource('city', CityController::class);
 
+Route::group(['middleware'=> ['auth:sanctum']], function () {
+
+    Route::resource('resumes',ResumeController::class);
+
+});
+
+Route::apiResource('/freelancer', FreelancerController::class);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
+
+ Route::resource('businessowner', BusinessOwnerController::class);
+});
+
+Route::resource('city', CityController::class);
 // Route::resource('roles', RoleController::class);
 
 
@@ -103,7 +135,9 @@ Route::post('/categories', [CategoryController::class, 'store']);
 Route::get('/categories/{category}', [CategoryController::class, 'show']);
 Route::put('/categories/{category}', [CategoryController::class, 'update']);
 Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::resource('jobseeker', JobSeekerController::class);
-    Route::resource('jops', JopController::class);
+
+Route::group(['middleware' => ['auth:sanctum']], function (){
+    Route::resource('jobseeker',JobSeekerController::class);
+    Route::resource('jops',JopController::class);
 });
+
