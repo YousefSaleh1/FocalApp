@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-<<<<<<< Updated upstream
 Route::middleware('auth:sanctum')->post('/user', function (Request $request) {
 
     return $request->user();
