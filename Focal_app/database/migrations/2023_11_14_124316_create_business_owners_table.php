@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('company_size')->nullable();
             $table->date('year_founded')->nullable();
             $table->string('responsible_job_role');
-            $table->integer('company_number');
+            $table->bigInteger('company_number');
             $table->string('website');
             $table->softDeletes();
             $table->timestamps();

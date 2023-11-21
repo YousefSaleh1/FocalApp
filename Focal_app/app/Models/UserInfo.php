@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Info_user extends Model
+class UserInfo extends Model
 {
     use HasFactory;
 
@@ -13,7 +13,7 @@ class Info_user extends Model
     [
         'user_id',
         'full_name',
-        'city_id',
+        'city',
         'phone_number',
         'facebook_account',
         'linked_in_account',

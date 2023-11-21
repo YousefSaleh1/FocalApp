@@ -2,17 +2,17 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreUser extends FormRequest
+class BlogRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,13 +23,18 @@ class StoreUser extends FormRequest
     public function rules(): array
     {
         return [
-            'email'=>'required|string|email|unique:users',
-            'password'=>'required|min:8',
-            'role_name' => 'required|string',
+            'user_id' => ['required','integer','exists:users,id','min:1','max:10000',],
+            'title' => ['required','string','max:255',],
+            'body' => ['required','string','min:10',],
+            'photo' => ['image','mimes:jpeg,png','max:2048','dimensions:min_width=300,min_height=300,max_width=2000,max_height=2000',],
             'status' => [
                 'required',
-                Rule::in(['active', 'disactive']),
+                Rule::in(['draft','post']),
             ],
-        ];
+
+
+
+
+                ];
     }
 }

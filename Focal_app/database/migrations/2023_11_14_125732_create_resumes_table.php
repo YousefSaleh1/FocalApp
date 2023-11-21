@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('experience')->nullable();
             $table->string('skills')->nullable();
             $table->string('languages')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

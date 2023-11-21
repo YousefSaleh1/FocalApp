@@ -24,7 +24,7 @@ class JobSeeker extends Model
     'experience',
     'work_type',
     'education_level',
-    'current_status',
+    'current_Job_Status',
     'salary_range',
   ];
 
