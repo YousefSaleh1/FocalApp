@@ -26,6 +26,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/Wallet/{userid}', [WalletController::class, 'show']);
+    Route::post('/Wallet/AddToWallet/{walletid}', [ProcessController::class, 'AddToCredit']);
+    Route::post('/Wallet/WithdrawFromWallet/{walletid}', [ProcessController::class, 'WithdrawFromCredit']);
+});
+
+
+Route::resource('user_info',UserinfoController::class);
 
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -33,6 +40,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/ShowJobQandA/{jop_id}', [AnswersController::class, 'ShowJobQandA']);
     Route::post('/storeAnswer/{question_id}', [AnswersController::class, 'storeAnswer']);
     Route::get('/showAnswer/{question_id}', [AnswersController::class, 'showAnswer']);
+    
+    
+    Route::get('/index/{jop_id}', [QuestionController::class, 'index']);
+    Route::post('/storeQuestion/{answer_id}', [QuestionController::class, 'storeQuestion']);
+    Route::get('/showQuestion/{answer_id}', [QuestionController::class, 'showQuestion']);
+    Route::post('/updateQuestion/{answer_id}', [QuestionController::class, 'updateQuestion']);
+    Route::delete('/destroy/{id}', [QuestionController::class, 'destroy']);
+    
 
 
     Route::apiResource('/freelancer', FreelancerController::class);

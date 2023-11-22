@@ -73,6 +73,44 @@ class QuestionController extends Controller
         return $this->apiResponse($questions,NULL,'done!',200);
     }
 
+
+    public function updateQuestion(UpdateQuestionRequest $request, $answer_id)
+    {
+        
+        $question = $request->validated();
+        $answer = Answer::find($answer_id);
+        
+        $question = collect([
+            'question' => $question['question'],
+            'answer' => $answer,
+        ]);
+
+        if($question->fails()){
+            return $this->apiResponse(null,$question->errors(),400);
+        }
+
+        $question = Question::updateQuestion([
+            'question' => $question['question'],
+            'answer_id'=> $answer_id,
+        ]);
+
+        if($question){
+            return $this->apiResponse(new QuestionResource($question),'the question updated',200);
+        }
+        return $this->apiResponse(null,'the question not updated',400);
+    }
+
+
+    public function destroy(string $id)
+    {
+        $question = Question::find($id);
+        if($question){
+            return $this->apiResponse(null,'the question not found',404);
+        }
+        $question->delete($id);
+        return $this->apiResponse("",'the question deleted',200);
+    }
+
 }
 
 
