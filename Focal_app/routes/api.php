@@ -49,8 +49,7 @@ Route::POST('/login', [AuthController::class, 'login'])->name('login');
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/Wallet/{userid}', [WalletController::class, 'usercredit']);
-    Route::post('/Wallet/{userid}', [WalletController::class, 'createwallet']);
+    Route::get('/Wallet/{userid}', [WalletController::class, 'show']);
     Route::post('/Wallet/AddToWallet/{walletid}', [ProcessController::class, 'AddToCredit']);
     Route::post('/Wallet/WithdrawFromWallet/{walletid}', [ProcessController::class, 'WithdrawFromCredit']);
 });
