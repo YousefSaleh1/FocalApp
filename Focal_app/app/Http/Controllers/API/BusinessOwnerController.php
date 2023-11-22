@@ -21,7 +21,7 @@ class BusinessOwnerController extends Controller
      */
     public function index()
     {
-        $businessOwner = BusinessOwner::latest()->paginate(10);
+        $businessOwner = BusinessOwner::all();
         return $this->apiResponse( BusinessOwnerResource::collection($businessOwner),'','all bisnessOwner Acconts',200);
 
 
@@ -34,6 +34,10 @@ class BusinessOwnerController extends Controller
     {
         $id=Auth::user()->id;
         $validation = $request->validated();
+        if ($validation->fails()) {
+            return $this->apiResponse(null ,null ,$validation->errors() , 400);
+        }
+
         $businessOwner = BusinessOwner::create([
             "user_id"               =>$id,
             "company_name"          =>$request->company_name,
@@ -70,6 +74,9 @@ class BusinessOwnerController extends Controller
         $businessOwner = BusinessOwner::findOrFail($id);
         $businessOwner_id=Auth::user()->id;
         $validation = $request->validated();
+        if ($validation->fails()) {
+            return $this->apiResponse(null ,null ,$validation->errors() , 400);
+        }
         $businessOwner->update([
             "user_id"               =>$businessOwner_id,
             "company_name"          =>$request->company_name,

@@ -23,7 +23,6 @@ class AuthController extends Controller
             'email' => $user['email'],
             'password' => Hash::make($user['password']),
             'role_name' => $user['role_name'],
-            'status' => $user['status'],
         ]);
 
         $token = $user->createToken('authToken')->plainTextToken;
@@ -47,4 +46,5 @@ class AuthController extends Controller
         return $this->apiResponse(new UserResource($user),$token,'successfully login,welcome!',200);
 
     }
+
 }

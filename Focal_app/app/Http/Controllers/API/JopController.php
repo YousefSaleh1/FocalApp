@@ -19,60 +19,59 @@ class JopController extends Controller
      */
     public function index()
     {
-        $jops = jop::all();
-        return $this->apiResponse(new JopResource($jops),'','registered successfully',200);
-
+        $jops = CompanyJob::all();
+        return $this->apiResponse(new JopResource($jops), '', 'registered successfully', 200);
     }
     /**
      * Store a newly created resource in storage.
      */
     public function store(JopRequest $request)
     {
-        //$Validation=$request->validated();
+        $Validation = $request->validated();
 
-      //if ($Validation->fails()){
-        //   return $this->apiResponse($Validation->errors,'arr not correct',400);
-       // }
-       $business_owners_id=Auth::user()->id;
-        $jops= CompanyJob::create([
-            'business_owners_id'=>$business_owners_id,
-            
-
-            'job_title'=>$request->job_title,
-            'job_role'=>$request->job_role,
-            'job_level'=>$request->job_level,
-            'experience'=>$request->experience,
-            'education_level' => $request->education_level,
-            'language'=>$request->language,
-            'age_range'=>$request->age_range,
-            'gender'=>$request->gender,
-            'city_id'=>$request->city_id,
-            'job_type'=>$request->job_type,
-            'address'=>$request->address,
-            'work_hour'=>$request->work_hour,
-            'salary_range'=>$request->salary_range,
-            'help'=>$request->help,
-            'job_discription'=>$request->job_discription,
-            'job_requirement'=>$request->job_requirement,
-            'status'=>$request->status,
-            'cancel_desc'=>$request->cancel_desc,
-        ]);
-        if($jops){
-            return $this->apiResponse(new JopResource($jops),'','registered successfully',200);
+        if ($Validation->fails()) {
+            return $this->apiResponse(null, null, $Validation->errors, 'arr not correct', 400);
         }
-        return $this->apiResponse(new JopResource($jops),'',' job are not registered successfully',200);
+        $business_owners_id = Auth::user()->id;
+        $jops = CompanyJob::create([
+            'business_owners_id' => $business_owners_id,
+
+
+            'job_title' => $request->job_title,
+            'job_role' => $request->job_role,
+            'job_level' => $request->job_level,
+            'experience' => $request->experience,
+            'education_level' => $request->education_level,
+            'language' => $request->language,
+            'age_range' => $request->age_range,
+            'gender' => $request->gender,
+            'city_id' => $request->city_id,
+            'job_type' => $request->job_type,
+            'address' => $request->address,
+            'work_hour' => $request->work_hour,
+            'salary_range' => $request->salary_range,
+            'help' => $request->help,
+            'job_discription' => $request->job_discription,
+            'job_requirement' => $request->job_requirement,
+            'status' => $request->status,
+            'cancel_desc' => $request->cancel_desc,
+        ]);
+        if ($jops) {
+            return $this->apiResponse(new JopResource($jops), '', 'registered successfully', 200);
+        }
+        return $this->apiResponse(new JopResource($jops), '', ' job are not registered successfully', 200);
     }
-        
+
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $jops=Jops::find(id);
-        if(!$jops){
-            return $this->apiResponse(null,'','the jop is not found',400);
+        $jops = CompanyJob::find($id);
+        if (!$jops) {
+            return $this->apiResponse(null, '', 'the jop is not found', 400);
         }
-        return $this->apiResponse(new JopResource($jops),'','the is jop',200);
+        return $this->apiResponse(new JopResource($jops), '', 'the is jop', 200);
     }
 
     /**
@@ -80,38 +79,39 @@ class JopController extends Controller
      */
     public function update(JopRequest $request, string $id)
     {
-        
-        $Validation=$request->validated();
+        $jop = CompanyJob::find($id);
 
-        if ($Validation->fails()){
-            return $this->apiResponse($Validation->errors(),'','',400);
+        $Validation = $request->validated();
+
+        if ($Validation->fails()) {
+            return $this->apiResponse($Validation->errors(), '', '', 400);
         }
-        $business_owners_id=Auth::user()->id;
-        $jops->update([
-            'business_owners_id'=>$business_owners_id,
-            'job_title'=>$request->job_title,
-            'job_role'=>$request->job_role,
-            'job_level'=>$request->job_level,
-            'experience'=>$request->experience,
+        $business_owners_id = Auth::user()->id;
+        $jop->update([
+            'business_owners_id' => $business_owners_id,
+            'job_title' => $request->job_title,
+            'job_role' => $request->job_role,
+            'job_level' => $request->job_level,
+            'experience' => $request->experience,
             'education_level' => $request->education_level,
-            'language'=>$request->language,
-            'age_range'=>$request->age_range,
-            'gender'=>$request->gender,
-            'city_id'=>$request->city_id,
-            'job_type'=>$request->job_type,
-            'address'=>$request->address,
-            'work_hour'=>$request->work_hour,
-            'salary_range'=>$request->salary_range,
-            'help'=>$request->help,
-            'job_discription'=>$request->job_discription,
-            'job_requirement'=>$request->job_requirement,
-            'status'=>$request->status,
-            'cancel_desc'=>$request->cancel_desc,
+            'language' => $request->language,
+            'age_range' => $request->age_range,
+            'gender' => $request->gender,
+            'city_id' => $request->city_id,
+            'job_type' => $request->job_type,
+            'address' => $request->address,
+            'work_hour' => $request->work_hour,
+            'salary_range' => $request->salary_range,
+            'help' => $request->help,
+            'job_discription' => $request->job_discription,
+            'job_requirement' => $request->job_requirement,
+            'status' => $request->status,
+            'cancel_desc' => $request->cancel_desc,
         ]);
-        if($jops){
-            return $this-> apiResponse(new JopResource($jop),'','the jop is updated',200);
+        if ($jop) {
+            return $this->apiResponse(new JopResource($jop), '', 'the jop is updated', 200);
         }
-        return $this-> apiResponse('','','the jop is not updated',400);
+        return $this->apiResponse('', '', 'the jop is not updated', 400);
     }
 
     /**
@@ -119,14 +119,12 @@ class JopController extends Controller
      */
     public function destroy(string $id)
     {
-        
-        $jops=Jops::find(id);
-        if(!$jops){
-            return $this->apiResponse('','','the jop is not found',404);
+
+        $jop = CompanyJob::find($id);
+        if (!$jop) {
+            return $this->apiResponse('', '', 'the jop is not found', 404);
         }
-        $jops->delete();
-        return $this->apiResponse('','','the jop is deleted',200);
-        
-    
+        $jop->delete();
+        return $this->apiResponse('', '', 'the jop is deleted', 200);
     }
 }
