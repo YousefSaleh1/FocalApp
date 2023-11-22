@@ -30,6 +30,13 @@ Route::POST('/login', [AuthController::class, 'login'])->name('login');
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/Wallet/{userid}', [WalletController::class, 'show']);
+    Route::post('/Wallet/AddToWallet/{walletid}', [ProcessController::class, 'AddToCredit']);
+    Route::post('/Wallet/WithdrawFromWallet/{walletid}', [ProcessController::class, 'WithdrawFromCredit']);
+});
+
+
+Route::resource('user_info',UserinfoController::class);
 
     Route::get('/ShowJobQandA/{jop_id}', [AnswersController::class, 'ShowJobQandA']);
     Route::post('/storeAnswer/{question_id}', [AnswersController::class, 'storeAnswer']);
