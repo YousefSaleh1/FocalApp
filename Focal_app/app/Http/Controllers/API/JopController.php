@@ -17,6 +17,30 @@ class JopController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function get_active_jops( ){
+        $jops = jop::where('status','Active')->get();
+        
+        
+                return $this->apiResponse(new JopResource($jops),'',' this is an active job ',200);
+    }
+    public function get_closed_jops( ){
+    $jops = jop::where('status','Closed')->get();
+    
+                return $this->apiResponse(new JopResource($jops),'',' this is an closed job ',200);
+            }
+        
+
+
+        public function get_wating_jops(){
+
+            $jops = jop::where('status','Waiting')->get();
+            
+                return $this->apiResponse(new JopResource($jops),'',' this is an Waiting job ',200);
+            }
+
+            
+        
+
     public function index()
     {
         $jops = jop::all();
@@ -28,12 +52,12 @@ class JopController extends Controller
      */
     public function store(JopRequest $request)
     {
-        //$Validation=$request->validated();
+        $Validation=$request->validated();
 
-      //if ($Validation->fails()){
-        //   return $this->apiResponse($Validation->errors,'arr not correct',400);
-       // }
-       $business_owners_id=Auth::user()->id;
+        if ($Validation->fails()){
+            return $this->apiResponse($Validation->errors,'arr not correct',400);
+        }
+        $business_owners_id=Auth::user()->id;
         $jops= CompanyJob::create([
             'business_owners_id'=>$business_owners_id,
             
