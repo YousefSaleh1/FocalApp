@@ -10,7 +10,7 @@ use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProcessController extends Controller
+class ProcesseController extends Controller
 {
     use ApiResponseTrait;
 

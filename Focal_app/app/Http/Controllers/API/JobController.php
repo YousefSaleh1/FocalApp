@@ -11,7 +11,7 @@ use App\Http\Traits\ApiResponseTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\API\AuthController;
 
-class JopController extends Controller
+class JobController extends Controller
 {
     use ApiResponseTrait;
     /**
@@ -33,10 +33,8 @@ class JopController extends Controller
             return $this->apiResponse(null, null, $Validation->errors, 'arr not correct', 400);
         }
         $business_owners_id = Auth::user()->id;
-        $jops = CompanyJob::create([
+        $jop = CompanyJob::create([
             'business_owners_id' => $business_owners_id,
-
-
             'job_title' => $request->job_title,
             'job_role' => $request->job_role,
             'job_level' => $request->job_level,
@@ -56,10 +54,10 @@ class JopController extends Controller
             'status' => $request->status,
             'cancel_desc' => $request->cancel_desc,
         ]);
-        if ($jops) {
-            return $this->apiResponse(new JopResource($jops), '', 'registered successfully', 200);
+        if ($jop) {
+            return $this->apiResponse(new JopResource($jop), '', 'registered successfully', 200);
         }
-        return $this->apiResponse(new JopResource($jops), '', ' job are not registered successfully', 200);
+        return $this->apiResponse(new JopResource($jop), '', ' job are not registered successfully', 200);
     }
 
     /**
