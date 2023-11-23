@@ -5,7 +5,7 @@ use App\Http\Controllers\API\AnswersController;
 use App\Http\Controllers\API\FreelancerController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\JobSeekerController;
-
+use App\Http\Controllers\API\JopController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -75,6 +75,12 @@ Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
 
 Route::group(['middleware' => ['auth:sanctum']], function (){
     Route::resource('jobseeker',JobSeekerController::class);
+    Route::resource('jops',JopController::class);
+    Route::get('activ_jops ',[JopController::class,' get_active_jops']);
+    Route::get('closed_jops ',[JopController::class,'get_closed_jops']);
+    Route::get('wating_jops ',[JopController::class,'get_wating_jops']);
+
+
 
 });
 
