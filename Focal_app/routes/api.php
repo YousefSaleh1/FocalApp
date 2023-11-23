@@ -14,7 +14,7 @@ use App\Http\Controllers\API\QuestionController;
 use App\Http\Controllers\API\SocialiteController;
 use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\JobSeekerController;
-
+use App\Http\Controllers\API\JopController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -68,6 +68,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/blogs/{blog}', [BlogController::class, 'show']);
     Route::put('/blogs/{blog}', [BlogController::class, 'update']);
     Route::delete('/blogs/{blog}', [BlogController::class, 'destroy']);
+
+    Route::resource('jobseeker',JobSeekerController::class);
+    Route::resource('jops',JopController::class);
+    Route::get('activ_jops ',[JopController::class,' get_active_jops']);
+    Route::get('closed_jops ',[JopController::class,'get_closed_jops']);
+    Route::get('wating_jops ',[JopController::class,'get_wating_jops']);
+
 
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/categories', [CategoryController::class, 'store']);
