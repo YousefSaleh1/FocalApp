@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\BusinessOwner;
 use App\Models\Question;
+use Coderflex\Laravisit\Concerns\CanVisit;
+use Coderflex\Laravisit\Concerns\HasVisits;
 
-class CompanyJob extends Model
+class CompanyJob extends Model implements CanVisit
 {
     use HasFactory;
+    use HasVisits;
+
 protected $table='company_jobs';
     protected $fillable = [
         'business_owners_id',
@@ -48,4 +52,4 @@ protected $table='company_jobs';
     }
 
 
-}//commit
+}

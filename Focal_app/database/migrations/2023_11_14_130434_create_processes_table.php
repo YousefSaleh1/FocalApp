@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('processes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('walet_id')->constrained('walets');
+            $table->foreignId('walet_id')->constrained('wallets');
             $table->string('contact_number');
             $table->integer('amount');
             $table->string('sender_name');

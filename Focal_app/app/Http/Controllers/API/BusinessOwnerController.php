@@ -34,9 +34,9 @@ class BusinessOwnerController extends Controller
     {
         $id=Auth::user()->id;
         $validation = $request->validated();
-        if ($validation->fails()) {
-            return $this->apiResponse(null ,null ,$validation->errors() , 400);
-        }
+        // if ($validation->fails()) {
+        //     return $this->apiResponse(null ,null ,$validation->errors() , 400);
+        // }
 
         $businessOwner = BusinessOwner::create([
             "user_id"               =>$id,
@@ -74,11 +74,12 @@ class BusinessOwnerController extends Controller
         $businessOwner = BusinessOwner::findOrFail($id);
         $businessOwner_id=Auth::user()->id;
         $validation = $request->validated();
-        if ($validation->fails()) {
-            return $this->apiResponse(null ,null ,$validation->errors() , 400);
-        }
+        // if ($validation->fails()) {
+        //     return $this->apiResponse(null ,null ,$validation->errors() , 400);
+        // }
+        $id=Auth::user()->id;
         $businessOwner->update([
-            "user_id"               =>$businessOwner_id,
+            "user_id"               => $id,
             "company_name"          =>$request->company_name,
             "company_field"         =>$request->company_field,
             "company_size"          =>$request->company_size,
