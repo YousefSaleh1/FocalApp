@@ -16,7 +16,7 @@ class FreelancerController extends Controller
     {
         $freelancer = Freelancer::all();
 
-        return $this->customeRespone(new FreelancerResource($freelancer), 'All Retrive Freallnce Success', 200);
+        return $this->customeRespone(new FreelancerResource($freelancer), 'All Retrieve Freelance Success', 200);
     }
 
     public function store(FreelancerRequest $freelancerRequest)
@@ -27,7 +27,7 @@ class FreelancerController extends Controller
             'user_id' => $data['user_id'],
         ]);
 
-        return $this->customeRespone(new FreelancerResource($freelance), 'Freelance Created Successfully.', 201);
+        return $this->customeRespone(new FreelancerResource($freelance),'Freelance Created Successfully.', 201);
     }
 
     public function show($id)
@@ -48,14 +48,14 @@ class FreelancerController extends Controller
         $freelancer = Freelancer::find($id);
 
         if (!$freelancer) {
-            return $this->customeRespone(null, 'Freelance Not Found!', 401);
+            return $this->customeRespone(null, 'Freelance Not Found!', 404);
         }
 
         $updateFreelance = $freelancer->update([
             'user_id' => $data['user_id']
         ]);
 
-        return $this->customeRespone(new FreelancerResource($updateFreelance), 'Freelance Update Suucessfully.', 201);
+        return $this->customeRespone(new FreelancerResource($updateFreelance), 'Freelance Update Successfully.', 201);
     }
 
     public function destroy($id)
