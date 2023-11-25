@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class BlogRequest extends FormRequest
+class ComplainRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +22,9 @@ class BlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required','string','max:255',],
-            'body' => ['required','string'],
-            'photo' => ['nullable ' , 'image ' ,'mimes:png,jpg,jpeg,gif,sug ',' max:2048'],
-            'status' => [
-                'required',
-                Rule::in(['draft','post']),
-            ],
-            'category_id' => ['required' , 'array']
-                ];
+            'complain_type'    => 'required|string|max:225',
+            'complain_reason'  => 'required|string|max:1000',
+            'photoURL'         => 'nullable | image | mimes:png,jpg,jpeg,gif,sug | max:2048',
+        ];
     }
 }
