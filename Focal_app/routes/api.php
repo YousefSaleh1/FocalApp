@@ -9,11 +9,12 @@ use App\Http\Controllers\API\BusinessOwnerController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ComplainController;
 use App\Http\Controllers\API\JobController;
+use App\Http\Controllers\API\JobSeekerController;
+use App\Http\Controllers\API\JopController;
 use App\Http\Controllers\API\ProcesseController;
 use App\Http\Controllers\API\QuestionController;
 use App\Http\Controllers\API\SocialiteController;
 use App\Http\Controllers\API\WalletController;
-use App\Http\Controllers\JobSeekerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
