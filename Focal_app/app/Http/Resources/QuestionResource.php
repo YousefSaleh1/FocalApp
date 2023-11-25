@@ -16,13 +16,7 @@ class QuestionResource extends JsonResource
     {
         return [
 
-            'id'             => $this->id ,
-            'company_job_id' => $this->question ->company_job_id ,
-            'question_id'    => $this->question_id ,
-            'question'       => $this->question ->question ,
-            'answer'         => $this->answer ,
-            'created_at'     => $this->created_at ,
-
+            'question'=> $this->question ,
 
         ];
     }

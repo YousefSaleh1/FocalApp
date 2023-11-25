@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\AnswerController;
+use App\Http\Controllers\API\UserinfoController;
+use App\Http\Controllers\API\FreelancerController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\BusinessOwnerController;
@@ -14,6 +16,8 @@ use App\Http\Controllers\API\QuestionController;
 use App\Http\Controllers\API\SocialiteController;
 use App\Http\Controllers\API\UserinfoController;
 use App\Http\Controllers\API\WalletController;
+use App\Http\Controllers\JobSeekerController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -51,11 +55,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/showAnswer/{question_id}', [AnswerController::class, 'showAnswer']);
 
 
-    Route::get('/index/{jop_id}', [QuestionController::class, 'index']);
+  /*  Route::get('/index/{jop_id}', [QuestionController::class, 'index']);
     Route::post('/storeQuestion/{answer_id}', [QuestionController::class, 'storeQuestion']);
     Route::get('/showQuestion/{answer_id}', [QuestionController::class, 'showQuestion']);
     Route::post('/updateQuestion/{answer_id}', [QuestionController::class, 'updateQuestion']);
-    Route::delete('/destroy/{id}', [QuestionController::class, 'destroy']);
+    Route::delete('/destroy/{id}', [QuestionController::class, 'destroy']);  */
+
+    Route::apiResource('/question', QuestionController::class);
+    Route::get('/get_job_question/{company_job_id}', [QuestionController::class,'get_questions_for_job']);
 
 
 
@@ -67,11 +74,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/blogs/{blog}', [BlogController::class, 'update']);
     Route::delete('/blogs/{blog}', [BlogController::class, 'destroy']);
 
-    Route::resource('jobseeker',JobSeekerController::class);
-    Route::resource('jops',JopController::class);
-    Route::get('activ_jops ',[JopController::class,' get_active_jops']);
-    Route::get('closed_jops ',[JopController::class,'get_closed_jops']);
-    Route::get('wating_jops ',[JopController::class,'get_wating_jops']);
+    Route::resource('jobs',JobController::class);
+    Route::get('activ_jobs ',[JobController::class,'get_active_jops']);
+    Route::get('closed_jobs ',[JobController::class,'get_closed_jops']);
+    Route::get('wating_jobs ',[JobController::class,'get_wating_jops']);
+    Route::get('visitorJob/{id} ',[JobController::class,'visitor']);
 
 
     Route::get('/categories', [CategoryController::class, 'index']);
@@ -81,8 +88,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
 
     Route::resource('jobseeker', JobSeekerController::class);
-
-    Route::resource('jobs', JobController::class);
 
 
     Route::apiResource('businessOwners', BusinessOwnerController::class);

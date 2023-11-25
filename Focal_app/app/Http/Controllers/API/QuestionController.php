@@ -18,15 +18,10 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      */
-     public function index($company_job_id)
+    public function index()
     {
-        $questions = Question::whereHas('Answer', function ($query) use ($company_job_id) {
-            $query->where('company_job_id', $company_job_id);
-        })->with('Answer')->get();
-
-       $questions = QuestionResource::collection($questions);
-
-       return $this->apiResponse($questions,NULL,'done!',200);
+    $questions = Question::all();
+    return $this->apiResponse( QuestionResource::collection($questions),'','all questions',200);
 
     }
 
@@ -35,81 +30,69 @@ class QuestionController extends Controller
      * Store a newly created resource in storage.
      */
 
-        public function storeQuestion(StoreQuestionRequest $request,$answer_id)
-    {
-
-        $question = $request->validated();
-        $answer = Answer::find($answer_id);
-
-        $question = collect([
-            'question' => $question['question'],
-            'answer' => $answer,
+     public function store(StoreQuestionRequest $request)
+     {
+ 
+         $validation = $request->validated();
+ 
+        $question = Question::Create([
+         'company_job_id'=> $request->company_job_id,
+         'question'=> $request->question,
+ 
         ]);
-
-       // $user = Auth::user();
-
-
-
-       $question = Question::Create([
-        'question'=> $question['question'],
-        'answer_id'=> $answer_id,
-
-       ]);
-
-
-        return $this->apiResponse($question,NULL,'done!',201);
-
-    }
-
-    public function showQuestion($answer_id)
-    {
-
-        $answer = Answer::where('id',$answer_id)->first();
-
-        $questions = $answer -> QuestionAnswers;
-
-        $questions = QuestionResource::collection($questions);
-
-        return $this->apiResponse($questions,NULL,'done!',200);
-    }
-
-
-    public function updateQuestion(StoreQuestionRequest $request, $answer_id)
-    {
-
-        $question = $request->validated();
-        $answer = Answer::find($answer_id);
-
-        $question = collect([
-            'question' => $question['question'],
-            'answer' => $answer,
-        ]);
-
-        if($question->fails()){
-            return $this->apiResponse(null,null,$question->errors(),400);
-        }
-
-        $question = Question::updateQuestion([
-            'question' => $question['question'],
-            'answer_id'=> $answer_id,
-        ]);
-
         if($question){
-            return $this->apiResponse(new QuestionResource($question),null,'the question updated',200);
+         return $this->apiResponse( new QuestionResource($question),'','Created successfully',200);
+        }else{
+         return $this->apiResponse( '','','not added',400);
         }
-        return $this->apiResponse(null,null,'the question not updated',400);
+     }
+
+     // show method
+
+     public function show(string $id)
+     {
+ 
+     $question = Question::findOrFail($id);
+     return $this->apiResponse( new QuestionResource($question),'',' successfully',200);
+     }
+
+     // update method
+
+     public function update(StoreQuestionRequest $request,string $id)
+     {
+ 
+         $validation = $request->validated();
+         $question = Question::findOrFail($id);
+ 
+         $question->update([
+          'company_job_id'=> $request->company_job_id,
+          'question'=> $request->question ]);
+         if($question){
+             return $this->apiResponse( new QuestionResource($question),'','updated successfully',200);
+         }else{
+             return $this->apiResponse( '','','not updated',400);
+            }
+ 
+     }
+
+     // destroy method
+     public function destroy(string $id)
+     {
+ 
+         $question = Question::findOrFail($id);
+         $question->delete();
+         return $this->apiResponse( '','','Deleted successfully',200);
+     }
+
+     // this method return all questions that relation with one selected job
+
+     public function get_questions_for_job(string $company_job_id){
+        $questions = Question::where("company_job_id", $company_job_id);
+    return $this->apiResponse( QuestionResource::collection($questions),'',' successfully',200);
+
     }
 
-
-    public function destroy(string $id)
-    {
-        $question = Question::find($id);
-        if($question){
-            return $this->apiResponse(null,null ,'the question not found',404);
-        }
-        $question->delete($id);
-        return $this->apiResponse("",null ,'the question deleted',200);
-    }
+   
 
 }
 
