@@ -20,7 +20,7 @@ class CityController extends Controller
     public function index()
     {
         $city= City::all();
-        return $this->apiResponse(CityResource::collection($city),"",'done!',200);
+        return $this->customeRespone(CityResource::collection($city),'done!',200);
     }
 
     /**
@@ -35,17 +35,23 @@ class CityController extends Controller
         ]);
 
         if($city){
-        return $this->apiResponse(new CityResource($city),"",'Successful',200);
+        return $this->customeRespone(new CityResource($city),'Successful',200);
       }
-      return $this->apiResponse(null,"",'not found',404);
+      return $this->customeRespone(null,'not found',404);
     }
-    
+
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show( $id)
     {
-        //
+        $city= City::find($id);
+
+        if (!$city) {
+            return $this->customeRespone(null, 'city Not Found!', 401);
+        }
+
+        return $this->customeRespone(new CityResource($city),'successful',200);
     }
 
     /**
@@ -55,12 +61,12 @@ class CityController extends Controller
     {
         $city = City::find($id);
         if(!$city){
-           return $this->apiResponse(null,"",'not found',404);
+           return $this->customeRespone(null,'not found',404);
         }
         $validate = $request->validated();
 
             $city->update($validate);
-            return $this->apiResponse(new CityResource($city),"",'Successfully Updated',200);
+            return $this->customeRespone(new CityResource($city),'Successfully Updated',200);
     }
     /**
      * Remove the specified resource from storage.
@@ -68,7 +74,7 @@ class CityController extends Controller
     public function destroy(City $city)
     {
         $city->delete();
-        return $this->apiResponse("","",'deleted',200);
+        return $this->customeRespone(new CityResource($city),'deleted',200);
     }
 }
 

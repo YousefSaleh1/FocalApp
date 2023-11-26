@@ -2,7 +2,7 @@
 
 namespace App\Http\Traits;
 
-use App\Http\Resources\CategoriesResource;
+use App\Http\Resources\CategoryResource;
 
 trait ApiResponseTrait
 {
@@ -10,7 +10,7 @@ trait ApiResponseTrait
 
         $array = [
             'data' =>$data,
-            'meassge' =>$message,
+            'message' =>$message,
             'access_token' => $token,
             'token_type' => 'Bearer',
         ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\CompanyJob;
 use Illuminate\Http\Request;
 use App\Models\CompanyJob;
 use App\Models\JobSeeker;
@@ -36,7 +37,7 @@ class FilteringController extends Controller
         $conditions = [];
         if ($experience) {
             $conditions[] = ['experience', '>=', $experience];
-        } 
+        }
         if ($field_of_work) {
             $conditions[] = ['field_of_work', '=', $field_of_work];
         }
@@ -60,7 +61,7 @@ class FilteringController extends Controller
         }
         // تنفيذ فلترة البيانات باستخدام المودل
         $filteredData = JobSeeker::where($conditions)->get();
-    
+
     // التحقق مما إذا كان هناك نتائج تطابق المعايير المحددة
     if ($filteredData->isEmpty()) {
         return response()->json(['message' => 'لا توجد نتائج تطابق المعايير المحددة']);
@@ -98,7 +99,7 @@ class FilteringController extends Controller
         $conditions = [];
         if ($experience) {
             $conditions[] = ['experience', '>=', $experience];
-        } 
+        }
         if ($job_type) {
             $conditions[] = ['job_type', '=', $job_type];
         }
@@ -122,7 +123,6 @@ class FilteringController extends Controller
         }
         // تنفيذ فلترة البيانات باستخدام المودل
         $filteredData = CompanyJob::where($conditions)->get();
-    
     // التحقق مما إذا كان هناك نتائج تطابق المعايير المحددة
     if ($filteredData->isEmpty()) {
         return response()->json(['message' => 'لا توجد نتائج تطابق المعايير المحددة']);
@@ -148,6 +148,6 @@ class FilteringController extends Controller
     }
 
     }
-}    
+}
 
 

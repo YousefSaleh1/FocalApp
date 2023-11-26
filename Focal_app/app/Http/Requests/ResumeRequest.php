@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -19,13 +20,13 @@ class ResumeRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
             'job_seeker_id'=> ["required", "integer", Rule::exists('job_seekers','id')],
-            'user_id'             =>["required", "integer", Rule::exists('users','id')],
+//            'user_id'             =>["required", "integer", Rule::exists('users','id')],
             'certificates_training_courses' =>["required","string","max:255"],
             'experience'                    =>["required","string","max:255"],
             'skills'                        =>["required","string","max:255"],

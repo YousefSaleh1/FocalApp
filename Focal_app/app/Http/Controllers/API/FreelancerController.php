@@ -7,6 +7,8 @@ use App\Http\Requests\FreelancerRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FreelancerResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class FreelancerController extends Controller
 {
@@ -14,20 +16,24 @@ class FreelancerController extends Controller
 
     public function index()
     {
-        $freelancer = Freelancer::all();
+        $freelancers = User::where('role_name','bloger')->get();
+        $freelancers_info = $freelancers->user_info()->get();
 
-        return $this->customeRespone(new FreelancerResource($freelancer), 'All Retrive Freallnce Success', 200);
+        return $this->customeRespone(new FreelancerResource($freelancers_info), 'All Retrieve Freelance Success', 200);
     }
 
     public function store(FreelancerRequest $freelancerRequest)
     {
         $data = $freelancerRequest->validated();
 
+
+
+        $id=Auth::user()->id;
         $freelance = Freelancer::create([
-            'user_id' => $data['user_id'],
+            'user_id' => $id,
         ]);
 
-        return $this->customeRespone(new FreelancerResource($freelance), 'Freelance Created Successfully.', 201);
+        return $this->customeRespone($freelance,'Freelance Created Successfully.', 201);
     }
 
     public function show($id)
@@ -48,14 +54,14 @@ class FreelancerController extends Controller
         $freelancer = Freelancer::find($id);
 
         if (!$freelancer) {
-            return $this->customeRespone(null, 'Freelance Not Found!', 401);
+            return $this->customeRespone(null, 'Freelance Not Found!', 404);
         }
 
         $updateFreelance = $freelancer->update([
             'user_id' => $data['user_id']
         ]);
 
-        return $this->customeRespone(new FreelancerResource($updateFreelance), 'Freelance Update Suucessfully.', 201);
+        return $this->customeRespone(new FreelancerResource($updateFreelance), 'Freelance Update Successfully.', 201);
     }
 
     public function destroy($id)
@@ -66,7 +72,7 @@ class FreelancerController extends Controller
             return $this->customeRespone(null, 'Freelance Not Found!', 401);
         }
 
-        $freelancer->destroy();
+        $freelancer->delete();
 
         return $this->customeRespone(new FreelancerResource($freelancer), 'Deleted Freelance Successfully.', 200);
     }
