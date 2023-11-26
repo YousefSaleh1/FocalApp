@@ -10,7 +10,6 @@ use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ComplainController;
 use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\JobSeekerController;
-use App\Http\Controllers\API\JopController;
 use App\Http\Controllers\API\ProcesseController;
 use App\Http\Controllers\API\QuestionController;
 use App\Http\Controllers\API\SocialiteController;

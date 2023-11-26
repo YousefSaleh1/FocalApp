@@ -4,12 +4,14 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogerResource;
+use App\Http\Traits\ApiResponseTrait;
 use App\Models\Bloger;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class BlogerController extends Controller
 {
+    use ApiResponseTrait;
     /**
      * Display a listing of the resource.
      */
@@ -18,7 +20,7 @@ class BlogerController extends Controller
 
         $blogers = User::where('role_name' , 'bloger')->get();
         $blogers_info = $blogers->user_info()->get();
-        return response()->json(BlogerResource::collection($blogers_info), 200);
+        return $this->customeRespone(BlogerResource::collection($blogers_info) ,"" , 200)  ;
     }
 
     /**
