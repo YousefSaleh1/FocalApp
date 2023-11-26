@@ -10,6 +10,8 @@ use App\Http\Traits\ApiResponseTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\JobResource;
 use App\Models\BusinessOwner;
+use App\Models\Processe;
+use App\Models\Wallet;
 
 class JobController extends Controller
 {
@@ -54,9 +56,44 @@ class JobController extends Controller
             'cancel_desc' => $request->cancel_desc,
         ]);
         if ($job) {
-            return $this->customeRespone(new JobResource($job), 'registered successfully', 200);
+            if ($job->help === 0) {
+                $wallet = Wallet::where('user_id', Auth::user()->id)->get();
+                if ($wallet->amount > 0 && $wallet->amount >= 25000) {
+                Processe::Create([
+                    'walletid' => $wallet->id,
+                    'contact_number' =>  $business_owner->company_number,
+                    'amount' => 25000,
+                    'sender_name' => $business_owner->company_name,
+                    'sender_id_number' => $business_owner->id,
+                    'payment_method' => "Withdraw",
+                    'receipt_number' => "1",
+                    'receiver_id_number' => "1",
+                    'password_vorifi' => "fake pass",
+
+                ]);
+                }
+
+            return $this->apiResponse(new JobResource($job), '', 'registered successfully & withdraw 25000 sp', 200);
+            }else{
+                $wallet = Wallet::where('user_id', Auth::user()->id)->get();
+                if ($wallet->amount > 0 && $wallet->amount >= 35000) {
+                Processe::Create([
+                    'walletid' => $wallet->id,
+                    'contact_number' => $business_owner->company_number,
+                    'amount' => 35000,
+                    'sender_name' => $business_owner->company_name,
+                    'sender_id_number' => $business_owner->id,
+                    'payment_method' => "Withdraw",
+                    'receipt_number' => "1",
+                    'receiver_id_number' => "1",
+                    'password_vorifi' => "fake pass",
+
+                ]);
+                }
+                return $this->apiResponse(new JobResource($job), '', 'registered successfully & withdraw 35000 sp', 200);
+            }
         }
-        return $this->customeRespone(new JobResource($job),' job are not registered successfully', 200);
+        return $this->apiResponse(new JobResource($job), '', ' job are not registered successfully', 400);
     }
 
     /**
