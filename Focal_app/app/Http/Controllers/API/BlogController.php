@@ -7,9 +7,11 @@ use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use App\Http\Resources\BlogResource;
+use App\Http\Traits\ApiResponseTrait;
 
 class BlogController extends Controller
 {
+  use ApiResponseTrait ;
     /**
      * Display a listing of the resource.
      */
@@ -32,12 +34,13 @@ class BlogController extends Controller
         'status' => $request->status,
       ]);
 
-      return new BlogResource($blog);
+       return response()->json(['message' => 'Resource updated successfully']);
     }
 
-    public function show(Blog $blog)
+    public function show($id)
     {
-      return new BlogResource($blog);
+      $blog=Blog::find($id);
+      return response()->json($blog, 200);
     }
 
     public function update(BlogRequest $request, Blog $blog)

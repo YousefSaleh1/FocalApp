@@ -11,6 +11,7 @@ use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\ProcesseController;
 use App\Http\Controllers\API\QuestionController;
 use App\Http\Controllers\API\SocialiteController;
+use App\Http\Controllers\API\FilteringController;
 use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\JobSeekerController;
 use Illuminate\Http\Request;
@@ -66,7 +67,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/blogs/{status}', [BlogController::class, 'index']);
     Route::post('/blogs', [BlogController::class, 'store']);
-    Route::get('/blogs/{blog}', [BlogController::class, 'show']);
+    Route::get('/blogs/{id}', [BlogController::class, 'show']);
     Route::put('/blogs/{blog}', [BlogController::class, 'update']);
     Route::delete('/blogs/{blog}', [BlogController::class, 'destroy']);
 
@@ -79,16 +80,17 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/categories', [CategoryController::class, 'store']);
-    Route::get('/categories/{category}', [CategoryController::class, 'show']);
-    Route::put('/categories/{category}', [CategoryController::class, 'update']);
-    Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
+    Route::get('/categories/{id}', [CategoryController::class, 'show']);
+    Route::put('/categories/{id}', [CategoryController::class, 'update']);
+    Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
 
     Route::resource('jobseeker', JobSeekerController::class);
 
 
     Route::apiResource('businessOwners', BusinessOwnerController::class);
 });
-
+Route::post('/filtter_employ',[FilteringController::class,'filtere']);
+Route::post('/filtter_job',[FilteringController::class,'filterj']);
 
 
 // Route::resource('roles', RoleController::class);
