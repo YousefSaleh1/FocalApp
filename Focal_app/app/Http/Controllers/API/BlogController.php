@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Notifications\AddNewBlog;
+use App\Http\Requests\BlogRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogResource;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Traits\UploadPhotoTrait;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class BlogController extends Controller
 {
@@ -44,7 +47,21 @@ class BlogController extends Controller
             'status' => $request->status,
         ]);
 
-        return $this->customeRespone(new BlogResource($blog), "Blog Created Successfuly", 200);
+        $blog_id = Blog::latest()->first();
+
+        $users = User::all();
+
+        $notification = new AddNewBlog($blog);
+        Notification::send($users,$notification);
+        return $this->customeRespone([
+            'blog' => new BlogResource($blog),
+            'notification' => [
+                'title' => $notification->toArray($users[0])['title'], // Assuming you want the title of the first user
+                'user' => $notification->toArray($users[0])['user'],
+            ],
+        ], "Blog Created Successfully", 200);
+
+        // return $this->customeRespone(new BlogResource($blog), "Blog Created Successfuly", 200);
     }
 
     public function show(Blog $blog)

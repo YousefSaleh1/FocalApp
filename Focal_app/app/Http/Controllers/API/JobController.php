@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\User;
 use  App\Models\CompanyJob;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\JobRequest;
 use Illuminate\Http\Request;
-use App\Http\Traits\ApiResponseTrait;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\JobResource;
 use App\Models\BusinessOwner;
+use App\Notifications\AddNewJob;
+use App\Http\Requests\JobRequest;
+use App\Http\Resources\JobResource;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Traits\ApiResponseTrait;
+use Illuminate\Support\Facades\Notification;
 
 class JobController extends Controller
 {
@@ -53,8 +56,23 @@ class JobController extends Controller
             'status' => $request->status,
             'cancel_desc' => $request->cancel_desc,
         ]);
+
+        $job_id = CompanyJob::latest()->first();
+        // $users = User::where('role_name',"freelancer")->get();
+
+        $users = User::all();
+        $notification = new AddNewJob($job_id);
+        Notification::send($users, $notification);
+
+
         if ($job) {
-            return $this->customeRespone(new JobResource($job), 'registered successfully', 200);
+            return $this->customeRespone([
+                'job' => new JobResource($job),
+                'notification' => [
+                    'job_title' => $notification->toArray($users[0])['job_title'], // Assuming you want the title of the first user
+                    'business_owner' => $notification->toArray($users[0])['business_owner'],
+                ],
+            ], "Blog Created Successfully", 200);
         }
         return $this->customeRespone(new JobResource($job),' job are not registered successfully', 200);
     }
