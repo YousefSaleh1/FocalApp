@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class BlogController extends Controller
 {
     use ApiResponseTrait, UploadPhotoTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -47,7 +48,7 @@ class BlogController extends Controller
         return $this->customeRespone(new BlogResource($blog), "Blog Created Successfuly", 200);
     }
 
-    public function show(Blog $blog)
+    public function show($id)
     {
         if ($blog) {
             return $this->customeRespone(new BlogResource($blog), 'ok', 200);
