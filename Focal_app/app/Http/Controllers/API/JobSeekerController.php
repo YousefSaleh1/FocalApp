@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreJobSeeker;
 use App\Http\Resources\JobSeekerResource;
 use App\Http\Traits\ApiResponseTrait;
 use App\Models\JobSeeker;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class JobSeekerController extends Controller
 {
@@ -88,7 +85,7 @@ class JobSeekerController extends Controller
     {
         $jobseeker = JobSeeker::find($id);
         if(!$jobseeker){
-            return $this->apiResponse(null," " ,'the jobseeker not found',404);
+            return $this->apiResponse(null,"" ,'the jobseeker not found',404);
         }
         $jobseeker->delete($id);
         return $this->apiResponse("","" ,'the jobseeker deleted',200);

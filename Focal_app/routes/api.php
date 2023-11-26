@@ -7,12 +7,14 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\BusinessOwnerController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\ComplainController;
 use App\Http\Controllers\API\JobController;
+use App\Http\Controllers\API\JobSeekerController;
+use App\Http\Controllers\API\JopController;
 use App\Http\Controllers\API\ProcesseController;
 use App\Http\Controllers\API\QuestionController;
 use App\Http\Controllers\API\SocialiteController;
 use App\Http\Controllers\API\WalletController;
-use App\Http\Controllers\JobSeekerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +37,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::get('login/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('login/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
+
 Route::middleware('auth:sanctum')->group(function () {
 
 
@@ -50,24 +53,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/storeAnswer/{question_id}', [AnswerController::class, 'storeAnswer']);
     Route::get('/showAnswer/{question_id}', [AnswerController::class, 'showAnswer']);
 
-
-  /*  Route::get('/index/{jop_id}', [QuestionController::class, 'index']);
-    Route::post('/storeQuestion/{answer_id}', [QuestionController::class, 'storeQuestion']);
-    Route::get('/showQuestion/{answer_id}', [QuestionController::class, 'showQuestion']);
-    Route::post('/updateQuestion/{answer_id}', [QuestionController::class, 'updateQuestion']);
-    Route::delete('/destroy/{id}', [QuestionController::class, 'destroy']);  */
-
-    Route::apiResource('/question', QuestionController::class);
+    Route::apiResource('/questions', QuestionController::class);
     Route::get('/get_job_question/{company_job_id}', [QuestionController::class,'get_questions_for_job']);
 
 
 
     Route::apiResource('/freelancer', FreelancerController::class);
 
-    Route::get('/blogs/{status}', [BlogController::class, 'index']);
+    Route::get('/blogs' , [BlogController::class , 'index']);
+    Route::get('/blogs/{status}', [BlogController::class, 'get_status']);
+    Route::get('/MyBlogs' , [BlogController::class , 'MyBlogs']);
     Route::post('/blogs', [BlogController::class, 'store']);
     Route::get('/blogs/{blog}', [BlogController::class, 'show']);
-    Route::put('/blogs/{blog}', [BlogController::class, 'update']);
+    Route::post('/blogs/{id}', [BlogController::class, 'update']);
     Route::delete('/blogs/{blog}', [BlogController::class, 'destroy']);
 
     Route::resource('jobs',JobController::class);
@@ -87,6 +85,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::apiResource('businessOwners', BusinessOwnerController::class);
+
+    Route::get('/complains' , [ComplainController::class , 'index']);
+    Route::get('/complains/{complain}' , [ComplainController::class , 'show']);
+    Route::post('/complains' , [ComplainController::class , 'store']);
+    Route::delete('/complains/{complain}' , [ComplainController::class , 'destroy']);
 });
 
 

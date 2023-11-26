@@ -22,7 +22,7 @@ class JobController extends Controller
     public function index()
     {
         $jobs = CompanyJob::all();
-        return $this->apiResponse(JobResource::collection($jobs), '', 'registered successfully', 200);
+        return $this->customeRespone(JobResource::collection($jobs),'registered successfully', 200);
     }
     /**
      * Store a newly created resource in storage.
@@ -103,10 +103,10 @@ class JobController extends Controller
     {
         $job = CompanyJob::find($id);
         if (!$job) {
-            return $this->apiResponse(null, '', 'the jop is not found', 400);
+            return $this->customeRespone(null,'the jop is not found', 400);
         }
         $visitor =  $job->visit($id);
-        return $this->apiResponse([new JobResource($job) , $visitor], '', 'the is jop', 200);
+        return $this->customeRespone([new JobResource($job) , $visitor], 'the is jop', 200);
     }
 
     /**
@@ -117,13 +117,11 @@ class JobController extends Controller
         $job = CompanyJob::find($id);
 
         $Validation = $request->validated();
-
-        if ($Validation->fails()) {
-            return $this->apiResponse($Validation->errors(), '', '', 400);
-        }
-        $business_owners_id = Auth::user()->id;
+        $user_id =  Auth::user()->id;
+        $business_owner = BusinessOwner::where('user_id', $user_id)->first();
+        $business_owner_id = $business_owner->id;
         $job->update([
-            'business_owners_id' => $business_owners_id,
+            'business_owners_id' => $business_owner_id,
             'job_title' => $request->job_title,
             'job_role' => $request->job_role,
             'job_level' => $request->job_level,
@@ -144,9 +142,9 @@ class JobController extends Controller
             'cancel_desc' => $request->cancel_desc,
         ]);
         if ($job) {
-            return $this->apiResponse(new JobResource($job), '', 'the jop is updated', 200);
+            return $this->customeRespone(new JobResource($job),'the jop is updated', 200);
         }
-        return $this->apiResponse('', '', 'the jop is not updated', 400);
+        return $this->customeRespone('','the jop is not updated', 400);
     }
 
     /**
@@ -157,23 +155,23 @@ class JobController extends Controller
 
         $job = CompanyJob::find($id);
         if (!$job) {
-            return $this->apiResponse('', '', 'the jop is not found', 404);
+            return $this->customeRespone('','the jop is not found', 404);
         }
         $job->delete();
-        return $this->apiResponse('', '', 'the jop is deleted', 200);
+        return $this->customeRespone('','the jop is deleted', 200);
     }
 
     public function visitor($id)
     {
         $visitor = CompanyJob::withTotalVisitCount()->where('id' , $id)->first()->visit_count_total;
-        return $this->apiResponse($visitor, '', 'visitor job', 200);
+        return $this->customeRespone($visitor,'visitor job', 200);
     }
 
     public function get_active_jops()
     {
         $jobs = CompanyJob::where('status', 'Active')->get();
 
-        return $this->apiResponse(JobResource::collection($jobs), '', ' this is an active job ', 200);
+        return $this->customeRespone(JobResource::collection($jobs),' this is an active job ', 200);
     }
 
     public function get_closed_jops()
@@ -181,7 +179,7 @@ class JobController extends Controller
 
         $jobs = CompanyJob::where('status', 'Closed')->get();
 
-        return $this->apiResponse(JobResource::collection($jobs), '', ' this is an closed job ', 200);
+        return $this->customeRespone(JobResource::collection($jobs),' this is an closed job ', 200);
     }
 
 
@@ -191,6 +189,6 @@ class JobController extends Controller
 
         $jobs = CompanyJob::where('status', 'Waiting')->get();
 
-        return $this->apiResponse(JobResource::collection($jobs), '', ' this is an Waiting job ', 200);
+        return $this->customeRespone(JobResource::collection($jobs),' this is an Waiting job ', 200);
     }
 }

@@ -22,7 +22,7 @@ class ResumeController extends Controller
     {
         $resumes = ResumeResources::collection(Resume::get());
 
-return  $this->apiResponse($resumes,'$token','ok',200);
+        return  $this->apiResponse($resumes,'$token','ok',200);
     }
 
     /**
@@ -36,7 +36,7 @@ return  $this->apiResponse($resumes,'$token','ok',200);
     /**
      * Store a newly created resource in storage.
      */
-    
+
     public function store(ResumeRequest $request)
 {
     $validator_data = $request->validated();
@@ -47,7 +47,7 @@ return  $this->apiResponse($resumes,'$token','ok',200);
         return $this->apiResponse(new ResumeResources($resume), "" ,'the resume created successfully',200);
     }
     return $this->apiResponse(null,"" ,'the resume not added',400);
-    
+
 }
     /**
      * Display the specified resource.
@@ -56,7 +56,7 @@ return  $this->apiResponse($resumes,'$token','ok',200);
     {
         $resume = Resume::find($id);
         if($resume){
-            
+
             return $this->apiResponse(new ResumeResources($resume),'$token','ok',200);
         }
         return $this->apiResponse($resume,'$token','the resume not found',404);
@@ -64,7 +64,7 @@ return  $this->apiResponse($resumes,'$token','ok',200);
     /**
      * Show the form for editing the specified resource.
      */
-    
+
     /**
      * Update the specified resource in storage.
      */
@@ -73,7 +73,7 @@ return  $this->apiResponse($resumes,'$token','ok',200);
     $resume = Resume::find($id);
     if(!$resume){
      return $this->apiResponse(null,'','the resume not found',404);
-}
+    }
     $validatedData = $request->validated();
     $resume->update($validatedData);
     return $this->apiResponse(new ResumeResources($resume),'','the resume updated',404);
