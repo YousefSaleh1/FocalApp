@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserinfo extends FormRequest
@@ -16,7 +17,7 @@ class StoreUserinfo extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -26,7 +27,6 @@ class StoreUserinfo extends FormRequest
             'phone_number' => 'required|integer',
             'facebook_account' => 'nullable|string',
             'linked_in_account' => 'nullable|string',
-            'behanc_account' => 'nullable|string',
             'profile_photo' => 'nullable',
         ];
     }

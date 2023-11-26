@@ -21,7 +21,7 @@ class UserinfoController extends Controller
     {
         $user_info = UserInfo::all();
 
-        return $this->apiResponse(UserinfoResource::collection($user_info), "", 'Data retrieved successfully', 200);
+        return $this->customeRespone(UserinfoResource::collection($user_info),'Data retrieved successfully', 200);
     }
 
     /**
@@ -53,11 +53,10 @@ class UserinfoController extends Controller
 
         if ($user_info) {
             return $this->apiResponse(new UserinfoResource($user_info), "", 'Successfully Created', 200);
-        }
 
-        return $this->apiResponse(null, "", 'Failed To Create', 400);
+        return $this->customeRespone(null,'Failed To Create', 400);
     }
-
+    }
     /**
      * Display the specified resource.
      */
@@ -66,10 +65,10 @@ class UserinfoController extends Controller
         $user_info = UserInfo::find($id);
 
         if (!$user_info) {
-            return $this->apiResponse(null, "", 'Not Found', 404);
+            return $this->customeRespone(null,'Not Found', 404);
         }
 
-        return $this->apiResponse(new UserinfoResource($user_info), "", 'Found', 200);
+        return $this->customeRespone(new UserinfoResource($user_info),'Found', 200);
     }
 
     /**
@@ -80,7 +79,7 @@ class UserinfoController extends Controller
         $user_info = UserInfo::find($id);
 
         if (!$user_info) {
-            return $this->apiResponse(null, "", 'Not Found', 404);
+            return $this->customeRespone(null,'Not Found', 404);
         }
 
         $validatedData = $request->validated();
@@ -101,7 +100,7 @@ class UserinfoController extends Controller
             'profile_photo' => $path,
         ]);
 
-        return $this->apiResponse(new UserinfoResource($user_info), "", 'Successfully Updated', 200);
+        return $this->customeRespone(new UserinfoResource($user_info),'Successfully Updated', 200);
     }
 
     /**
@@ -112,11 +111,11 @@ class UserinfoController extends Controller
         $user_info = UserInfo::find($id);
 
         if (!$user_info) {
-            return $this->apiResponse(null, "", 'Not Found', 404);
+            return $this->customeRespone(null,'Not Found', 404);
         }
 
         $user_info->delete();
 
-        return $this->apiResponse("", "", "User Deleted", 200);
+        return $this->customeRespone( new UserinfoResource($user_info),"User Deleted", 200);
     }
 }
