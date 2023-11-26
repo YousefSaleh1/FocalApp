@@ -46,7 +46,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-    Route::resource('user_info', UserinfoController::class);
+    Route::get('user_info', [UserinfoController::class , 'index']);
+    Route::get('user_info/{id}', [UserinfoController::class , 'show']);
+    Route::post('user_info', [UserinfoController::class , 'store']);
+    Route::post('user_info/{id}', [UserinfoController::class , 'update']);
+    Route::delete('user_info/{id}', [UserinfoController::class , 'destroy']);
 
     Route::get('/ShowJobQandA/{jop_id}', [AnswerController::class, 'ShowJobQandA']);
     Route::post('/storeAnswer/{question_id}', [AnswerController::class, 'storeAnswer']);

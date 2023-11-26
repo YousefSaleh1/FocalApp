@@ -60,9 +60,9 @@ class BlogController extends Controller
 
         $blog = Blog::find($id);
 
-        // if ($user_id !== $blog->user_id) {
-        //     return $this->customeRespone(null, 'You can only edit your own blog.', 403);
-        // } else {
+        if (Auth::user()->id !== $blog->user_id) {
+            return $this->customeRespone(null, 'You can only edit your own blog.', 403);
+        } else {
             if (!empty($request->photo)) {
 
                 $path = $this->UploadPhoto($request, 'blogs', 'photo');
@@ -78,7 +78,7 @@ class BlogController extends Controller
             ]);
 
             return $this->customeRespone(new BlogResource($blog), "Blog Updated Successfuly", 200);
-        // }
+        }
     }
 
     public function destroy(BlogRequest $blog)
