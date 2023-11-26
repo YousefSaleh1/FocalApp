@@ -26,7 +26,7 @@ class AnswerController extends Controller
 
         $answers = AnswerResource::collection($answers);
 
-        return $this->apiResponse($answers, NULL, 'done!', 200);
+        return $this->customeRespone($answers,'done!', 200);
     }
 
     /*  This method will store new answer, for a specifice question, You should
@@ -58,7 +58,7 @@ class AnswerController extends Controller
         ]);
 
 
-        return $this->apiResponse($answer, NULL, 'done!', 201);
+        return $this->customeRespone($answer,'done!', 201);
     }
 
 
@@ -79,7 +79,7 @@ class AnswerController extends Controller
 
         $answers = AnswerResource::collection($answers);
 
-        return $this->apiResponse($answers, NULL, 'done!', 200);
+        return $this->customeRespone($answers,'done!', 200);
     }
 
 

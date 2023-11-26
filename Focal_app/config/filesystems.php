@@ -44,7 +44,7 @@ return [
             'throw' => false,
         ],
 
-         'Focal-images'=>[
+         'Focal_images'=>[
             'driver' => 'local',
             'root' => public_path('photos'),
             'url' => env('APP_URL').'/storage',
