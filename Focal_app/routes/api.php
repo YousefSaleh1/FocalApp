@@ -1,25 +1,24 @@
 <?php
 
-use App\Http\Controllers\API\AnswerController;
-use App\Http\Controllers\API\UserinfoController;
-use App\Http\Controllers\API\FreelancerController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BlogController;
-use App\Http\Controllers\API\BusinessOwnerController;
-use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CityController;
-use App\Http\Controllers\API\FreelancerController;
+use App\Http\Controllers\API\AnswerController;
+use App\Http\Controllers\API\ResumeController;
+use App\Http\Controllers\API\WalletController;
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ComplainController;
-use App\Http\Controllers\API\JobController;
-use App\Http\Controllers\API\JobSeekerController;
 use App\Http\Controllers\API\ProcesseController;
 use App\Http\Controllers\API\QuestionController;
-use App\Http\Controllers\API\ResumeController;
-use App\Http\Controllers\API\SocialiteController;
+use App\Http\Controllers\API\UserinfoController;
 use App\Http\Controllers\API\FilteringController;
-use App\Http\Controllers\API\WalletController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\JobSeekerController;
+use App\Http\Controllers\API\SocialiteController;
+use App\Http\Controllers\API\FreelancerController;
+use App\Http\Controllers\API\BusinessOwnerController;
 
 
 /*
@@ -103,10 +102,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/complains' , [ComplainController::class , 'index']);
     Route::get('/complains/{complain}' , [ComplainController::class , 'show']);
     Route::post('/complains' , [ComplainController::class , 'store']);
-    Route::delete('/complains/{complain}' , [ComplainController::class , 'destroy'];
+    Route::delete('/complains/{complain}' , [ComplainController::class , 'destroy']);
 });
 Route::post('/filtter_employ',[FilteringController::class,'filtere']);
 Route::post('/filtter_job',[FilteringController::class,'filterj']);
 
 
-// Route::resource('roles', RoleController::class);
+Route::resource('roles', RoleController::class);
