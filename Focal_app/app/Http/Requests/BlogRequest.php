@@ -30,6 +30,8 @@ class BlogRequest extends FormRequest
                 'required',
                 Rule::in(['draft','post']),
             ],
-                ];
+            // 'category_id' => ['required' , 'array']
+            //
+        ];
     }
 }
