@@ -7,9 +7,11 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Traits\ApiResponseTrait;
 
 class CategoryController extends Controller
 {
+    use ApiResponseTrait ;
     /**
      * Display a listing of the resource.
      */
@@ -17,7 +19,7 @@ class CategoryController extends Controller
     {
                    // Query the desired data
                    $category = Category::all();
-
+                    // return $category ;
                    // Return a JSON response
                    return response()->json($category);
     }
@@ -34,34 +36,40 @@ class CategoryController extends Controller
       return new CategoryResource($category);
     }
 
-    public function show(Category $category)
+    public function show($id)
     {
-      return new CategoryResource($category);
+      $category = Category::find($id);
+
+      return $this->customeRespone($category,['show category is done'],200);
     }
 
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request,$id)
     {
- $validatedData = $request->validate([
-    'title' =>'required','string','max:255',
-]);
+      $category = Category::find($id);
+          $validatedData = $request->validate([
+         'title' =>'required','string','max:255',
+                ]);
 
-$category->update($validatedData);
+       $category->update($validatedData);
 
-$updatedAt = $category->updated_at;
+       $updatedAt = $category->updated_at;
 
 
-return response()->json([
+    return response()->json([
     'message' => 'Resource updated successfully',
     'updated_at' => $updatedAt,
-]);
+    ]);
 
     }
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-      $category->delete();
-
-      return response()->json(null, 204);
+      $category= Category::find($id);
+      if(auth()->user()->hasRole('admin')){
+          $category->delete();
+      return response()->json(['message'=>'category was deleted'],200) ;
+          }
+      return response()->json(['error'=>'you do not have permission to delete this category,,,,sorry'], 403);
     }
 
 }
