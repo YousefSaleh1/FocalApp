@@ -16,13 +16,13 @@ class UserinfoResource extends JsonResource
     {
         return [
             'full_name'         => $this->full_name,
-            'city'              => $this->city,
+            'city'              => new CityResource($this->city_id),
             'phone_number'      => $this->phone_number,
             'facebook_account'  => $this->facebook_account,
             'linked_in_account' => $this->linked_in_account,
             'behanc_account'    => $this->behanc_account,
             'profile_photo'     => $this->profile_photo,
-            'status'            => $this->status, 
+            'status'            => $this->status,
         ];
     }
 }
