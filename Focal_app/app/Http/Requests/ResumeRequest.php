@@ -25,12 +25,10 @@ class ResumeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'job_seeker_id'=> ["required", "integer", Rule::exists('job_seekers','id')],
-//            'user_id'             =>["required", "integer", Rule::exists('users','id')],
-            'certificates_training_courses' =>["required","string","max:255"],
-            'experience'                    =>["required","string","max:255"],
-            'skills'                        =>["required","string","max:255"],
-            'languages'                     =>["required","string","max:255"],
+            'certificates_training_courses' =>["nullable","string","max:255"],
+            'experience'                    =>["nullable","string","max:255"],
+            'skills'                        =>["nullable","string","max:255"],
+            'languages'                     =>["nullable","string","max:255"],
         ];
     }
 }

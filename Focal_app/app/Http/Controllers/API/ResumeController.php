@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ResumeRequest;
 use App\Http\Resources\ResumeResources;
 use App\Http\Traits\ApiResponseTrait;
+use App\Models\JobSeeker;
 use App\Models\Resume;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,64 +21,66 @@ class ResumeController extends Controller
      */
     public function index()
     {
-//        $resumes = ResumeResources::collection(Resume::get());
-//        return  $this->customeRespone($resumes,'ok',200);
+        $resumes = ResumeResources::collection(Resume::get());
+        return  $this->customeRespone($resumes, 'ok', 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-       //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
 
     public function store(ResumeRequest $request)
-{
-    $validator_data = $request->validated();
+    {
+        $validator_data = $request->validated();
+        $user_id = Auth::user()->id;
+        $joobSeekr = JobSeeker::where('user_id', $user_id)->first();
+        $joobSeekr_id =$joobSeekr->id;
+        $resume = Resume::create([
+            'job_seeker_id' => $joobSeekr_id,
+            'certificates_training_courses' => $request->certificates_training_courses,
+            'experience' => $request->experience,
+            'skills' => $request->skills,
+            'languages' => $request->languages,
+        ]);
 
-    $resume = Resume::create($validator_data);
-
-    if($resume){
-        return $this->customeRespone(new ResumeResources($resume), 'the resume created successfully',200);
+        if ($resume) {
+            return $this->customeRespone(new ResumeResources($resume), 'the resume created successfully', 200);
+        }
+        return $this->customeRespone(null, 'the resume not added', 400);
     }
-    return $this->customeRespone(null,'the resume not added',400);
-
-}
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
         $resume = Resume::find($id);
-        if($resume){
+        if ($resume) {
 
-            return $this->customeRespone(new ResumeResources($resume),'ok',200);
+            return $this->customeRespone(new ResumeResources($resume), 'ok', 200);
         }
-        return $this->customeRespone($resume,'the resume not found',404);
+        return $this->customeRespone($resume, 'the resume not found', 404);
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
 
     /**
      * Update the specified resource in storage.
      */
     public function update(ResumeRequest $request, string $id)
     {
-    $resume = Resume::find($id);
-    if(!$resume){
-     return $this->customeRespone(null,'the resume not found',404);
-    }
-    $validatedData = $request->validated();
+        $resume = Resume::find($id);
+        if (!$resume) {
+            return $this->customeRespone(null, 'the resume not found', 404);
+        }
+        $validatedData = $request->validated();
 
-    $resume->update($validatedData);
+        $resume->update([
+            'certificates_training_courses' => $request->certificates_training_courses,
+            'experience' => $request->experience,
+            'skills' => $request->skills,
+            'languages' => $request->languages,
+        ]);
 
-    return $this->customeRespone(new ResumeResources($resume),'the resume updated',200);
+        return $this->customeRespone(new ResumeResources($resume), 'the resume updated', 200);
     }
     /**
      * Remove the specified resource from storage.
@@ -87,7 +90,7 @@ class ResumeController extends Controller
         $resume = Resume::find($id);
         if (!$resume) {
 
-            return $this->customeRespone(null,'this Resume not found', 404);
+            return $this->customeRespone(null, 'this Resume not found', 404);
         }
         $resume->delete();
 

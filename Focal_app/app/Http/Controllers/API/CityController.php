@@ -19,8 +19,8 @@ class CityController extends Controller
      */
     public function index()
     {
-        $city= City::all();
-        return $this->customeRespone(CityResource::collection($city),'done!',200);
+        $city = City::all();
+        return $this->customeRespone(CityResource::collection($city), 'done!', 200);
     }
 
     /**
@@ -30,28 +30,28 @@ class CityController extends Controller
     {
         $validate = $request->validated();
 
-        $city=City::create([
-            'city_name'=>$request->city_name,
+        $city = City::create([
+            'city_name' => $request->city_name,
         ]);
 
-        if($city){
-        return $this->customeRespone(new CityResource($city),'Successful',200);
-      }
-      return $this->customeRespone(null,'not found',404);
+        if ($city) {
+            return $this->customeRespone(new CityResource($city), 'Successful', 200);
+        }
+        return $this->customeRespone(null, 'not found', 404);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show( $id)
+    public function show($id)
     {
-        $city= City::find($id);
+        $city = City::find($id);
 
         if (!$city) {
             return $this->customeRespone(null, 'city Not Found!', 401);
         }
 
-        return $this->customeRespone(new CityResource($city),'successful',200);
+        return $this->customeRespone(new CityResource($city), 'successful', 200);
     }
 
     /**
@@ -60,13 +60,13 @@ class CityController extends Controller
     public function update(StoreCity $request, string $id)
     {
         $city = City::find($id);
-        if(!$city){
-           return $this->customeRespone(null,'not found',404);
+        if (!$city) {
+            return $this->customeRespone(null, 'not found', 404);
         }
         $validate = $request->validated();
 
-            $city->update($validate);
-            return $this->customeRespone(new CityResource($city),'Successfully Updated',200);
+        $city->update($validate);
+        return $this->customeRespone(new CityResource($city), 'Successfully Updated', 200);
     }
     /**
      * Remove the specified resource from storage.
@@ -74,7 +74,6 @@ class CityController extends Controller
     public function destroy(City $city)
     {
         $city->delete();
-        return $this->customeRespone(new CityResource($city),'deleted',200);
+        return $this->customeRespone(null, 'deleted', 200);
     }
 }
-

@@ -15,12 +15,10 @@ class ResumeResources extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'job_seeker_id'                => $this->job_seeker_id,
             'certificates_training_courses'=> $this->certificates_training_courses,
             'experience'                   => $this->experience,
             'skills'                       => $this->skills,
             'languages'                    => $this->languages,
-
         ];
     }
 }

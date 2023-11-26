@@ -8,7 +8,6 @@ use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\BusinessOwnerController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CityController;
-use App\Http\Controllers\API\FreelancerController;
 use App\Http\Controllers\API\ComplainController;
 use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\JobSeekerController;
@@ -101,7 +100,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/complains' , [ComplainController::class , 'index']);
     Route::get('/complains/{complain}' , [ComplainController::class , 'show']);
     Route::post('/complains' , [ComplainController::class , 'store']);
-    Route::delete('/complains/{complain}' , [ComplainController::class , 'destroy'];
+    Route::delete('/complains/{complain}' , [ComplainController::class , 'destroy']);
 });
 
 
