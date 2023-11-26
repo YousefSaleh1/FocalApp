@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Notification;
 class BlogController extends Controller
 {
     use ApiResponseTrait, UploadPhotoTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -64,7 +65,7 @@ class BlogController extends Controller
         // return $this->customeRespone(new BlogResource($blog), "Blog Created Successfuly", 200);
     }
 
-    public function show(Blog $blog)
+    public function show($id)
     {
         if ($blog) {
             return $this->customeRespone(new BlogResource($blog), 'ok', 200);
@@ -77,9 +78,9 @@ class BlogController extends Controller
 
         $blog = Blog::find($id);
 
-        // if ($user_id !== $blog->user_id) {
-        //     return $this->customeRespone(null, 'You can only edit your own blog.', 403);
-        // } else {
+        if (Auth::user()->id !== $blog->user_id) {
+            return $this->customeRespone(null, 'You can only edit your own blog.', 403);
+        } else {
             if (!empty($request->photo)) {
 
                 $path = $this->UploadPhoto($request, 'blogs', 'photo');
@@ -95,7 +96,7 @@ class BlogController extends Controller
             ]);
 
             return $this->customeRespone(new BlogResource($blog), "Blog Updated Successfuly", 200);
-        // }
+        }
     }
 
     public function destroy(BlogRequest $blog)

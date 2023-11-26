@@ -13,7 +13,7 @@ class UserInfo extends Model
     [
         'user_id',
         'full_name',
-        'city',
+        'city_id',
         'phone_number',
         'facebook_account',
         'linked_in_account',

@@ -19,12 +19,12 @@ return new class extends Migration
             $table->enum('job_level',['Beginner','Junior','Mid','Senior','Expert']);
             $table->string('experience');
             $table->enum('education_level',['highSchoolDiploma','collegeDegree','MasterDegree','A Ph.D']);
-            $table->enum('language',['English','Arabic','French']);
+            $table->enum('language',['English','Arabic','French'])->nullable();
             $table->enum('age_range',['20-25','25-30','30-35','35-40']);
             $table->enum('gender',['male','female','no_profrence']);
             $table->enum('job_type',['full Time','partTime','Remotely','trainee']);
             $table->foreignId('city_id')->constrained('cities')->cascadeOnDelete();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->enum('work_hour',['One hour','Tow hours','Three hours','Four hours','Five hours','Six hours','Seven hours','Eight hours']);
             $table->enum('salary_range',['500000-10000000','10000000-1500000','1500000-2000000','2000000-2500000']);
             $table->boolean('help');

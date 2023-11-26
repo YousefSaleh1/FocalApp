@@ -16,11 +16,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('full_name');
-            $table->foreignId('city_id')->constrained('cities')->cascadeOnDelete();
+            $table->foreignId('city_id')->constrained('cities');
             $table->string('phone_number');
-            $table->string('facebook_account');
-            $table->string('linked_in_account');
-            $table->string('behanc_account');
+            $table->string('facebook_account')->nullable();
+            $table->string('linked_in_account')->nullable();
+            $table->string('behanc_account')->nullable();
             $table->string('profile_photo');
             $table->softDeletes();
             $table->timestamps();
