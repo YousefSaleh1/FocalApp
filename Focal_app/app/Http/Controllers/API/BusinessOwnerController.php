@@ -7,7 +7,6 @@ use App\Http\Requests\StorBusinessOwnerRequest;
 use App\Http\Resources\BusinessOwnerResource;
 use App\Models\BusinessOwner;
 use App\Http\Traits\ApiResponseTrait;
-use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,8 +20,8 @@ class BusinessOwnerController extends Controller
      */
     public function index()
     {
-        $businessOwner = BusinessOwner::latest()->paginate(10);
-        return $this->apiResponse( BusinessOwnerResource::collection($businessOwner),'','all bisnessOwner Acconts',200);
+        $businessOwner = BusinessOwner::all();
+        return $this->customeRespone( BusinessOwnerResource::collection($businessOwner),'all bisnessOwner Acconts',200);
 
 
     }
@@ -32,8 +31,10 @@ class BusinessOwnerController extends Controller
      */
     public function store(StorBusinessOwnerRequest $request)
     {
-        $id=Auth::user()->id;
         $validation = $request->validated();
+
+        $id=Auth::user()->id;
+
         $businessOwner = BusinessOwner::create([
             "user_id"               =>$id,
             "company_name"          =>$request->company_name,
@@ -45,9 +46,9 @@ class BusinessOwnerController extends Controller
             "website"               =>$request->website,
         ]);
         if($businessOwner){
-            return $this->apiResponse(new BusinessOwnerResource($businessOwner),"",'Created successfully',200);
+            return $this->customeRespone(new BusinessOwnerResource($businessOwner),'Created successfully',200);
         }else{
-            return $this->apiResponse('','','not created',400);
+            return $this->customeRespone('','not created',400);
         }
 
     }
@@ -59,7 +60,7 @@ class BusinessOwnerController extends Controller
     {
         $businessOwner = BusinessOwner::findOrFail($id);
 
-        return $this->apiResponse(new BusinessOwnerResource($businessOwner),"",'Show successfully',200);
+        return $this->customeRespone(new BusinessOwnerResource($businessOwner),'Show successfully',200);
     }
 
     /**
@@ -68,10 +69,10 @@ class BusinessOwnerController extends Controller
     public function update(StorBusinessOwnerRequest $request, string $id)
     {
         $businessOwner = BusinessOwner::findOrFail($id);
-        $businessOwner_id=Auth::user()->id;
         $validation = $request->validated();
+        $id=Auth::user()->id;
         $businessOwner->update([
-            "user_id"               =>$businessOwner_id,
+            "user_id"               => $id,
             "company_name"          =>$request->company_name,
             "company_field"         =>$request->company_field,
             "company_size"          =>$request->company_size,
@@ -81,10 +82,10 @@ class BusinessOwnerController extends Controller
             "website"               =>$request->website,
         ]);
         if($businessOwner){
-            return $this->apiResponse(new BusinessOwnerResource($businessOwner),'','Update successfully',200);
+            return $this->customeRespone(new BusinessOwnerResource($businessOwner),'Update successfully',200);
 
         }else{
-            return $this->apiResponse('','','not updated',400);
+            return $this->customeRespone('','not updated',400);
 
         }
     }
@@ -96,6 +97,6 @@ class BusinessOwnerController extends Controller
     {
         $businessOwner = BusinessOwner::findOrFail($id);
         $businessOwner->delete();
-        return $this->apiResponse('','','Delete successfully',200);
+        return $this->customeRespone('','Delete successfully',200);
     }
 }

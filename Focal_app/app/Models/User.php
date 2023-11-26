@@ -84,7 +84,7 @@ class User extends \TCG\Voyager\Models\User
 
     public function user_info()
     {
-        return $this->hasOne(Info_user::class);
+        return $this->hasOne(UserInfo::class,'user_id');
     }
 
     public function complains()
@@ -107,5 +107,9 @@ class User extends \TCG\Voyager\Models\User
     public function providers()
     {
         return $this->hasMany(Provider::class, 'user_id', 'id');
+
+
     }
+
+
 }

@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreJobSeeker;
 use App\Http\Resources\JobSeekerResource;
 use App\Http\Traits\ApiResponseTrait;
 use App\Models\JobSeeker;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class JobSeekerController extends Controller
 {
@@ -18,7 +15,7 @@ class JobSeekerController extends Controller
     public function index()
     {
         $jobseekers = JobSeeker::all();
-        return $this->apiResponse(JobSeekerResource::collection($jobseekers),"",'ok',200);
+        return $this->customeRespone(JobSeekerResource::collection($jobseekers),'ok',200);
     }
 
     /**
@@ -39,9 +36,9 @@ class JobSeekerController extends Controller
         $jobseeker = JobSeeker::create($validator_data);
 
         if($jobseeker){
-            return $this->apiResponse(new JobSeekerResource($jobseeker), "" ,'the jobseeker created successfully',200);
+            return $this->customeRespone(new JobSeekerResource($jobseeker),'the jobseeker created successfully',200);
         }
-        return $this->apiResponse(null,"" ,'the jobseeker not added',400);
+        return $this->customeRespone(null,'the jobseeker not added',400);
     }
 
     /**
@@ -51,9 +48,9 @@ class JobSeekerController extends Controller
     {
         $jobseeker = JobSeeker::find($id);
         if(!$jobseeker){
-            return $this->apiResponse(null,"" ,'the jobseeker not found',404);
+            return $this->customeRespone(null ,'the jobseeker not found',404);
         }
-        return $this->apiResponse(new JobSeekerResource($jobseeker),"" ,'ok',200);
+        return $this->customeRespone(new JobSeekerResource($jobseeker),'ok',200);
     }
 
     /**
@@ -71,13 +68,13 @@ class JobSeekerController extends Controller
     {
         $jobseeker = JobSeeker::find($id);
         if(!$jobseeker){
-            return $this->apiResponse(null, "",'the jobseeker not found',404);
+            return $this->customeRespone(null,'the jobseeker not found',404);
         }
 
         $validator_data = $request->validated();
 
         $jobseeker ->update( $validator_data);
-        return $this->apiResponse(new JobSeekerResource($jobseeker),"" ,'the jobseeker updated',200);
+        return $this->customeRespone(new JobSeekerResource($jobseeker),'the jobseeker updated',200);
 
     }
 
@@ -88,9 +85,9 @@ class JobSeekerController extends Controller
     {
         $jobseeker = JobSeeker::find($id);
         if(!$jobseeker){
-            return $this->apiResponse(null," " ,'the jobseeker not found',404);
+            return $this->customeRespone(null,'the jobseeker not found',404);
         }
         $jobseeker->delete($id);
-        return $this->apiResponse("","" ,'the jobseeker deleted',200);
+        return $this->customeRespone("",'the jobseeker deleted',200);
     }
 }

@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Traits;
+namespace App\Http\Traits;
+
 use Illuminate\Http\Request;
 
 
-trait UploadPhotoTrait {
+trait UploadPhotoTrait
+{
     public function UploadPhoto(Request $request, $folderName, $fileName)
-     {
-     $photo =time() .'.'. $request->file($fileName)->getClientOriginalName();
-     $path = $request->file($fileName)->storeAs($folderName,$photo,'photos');
-     return $path;
+    {
+        $photo = time() . '.' . $request->file($fileName)->getClientOriginalName();
+        $path = $request->file($fileName)->storeAs($folderName, $photo, 'Focal_images');
+        return $path;
     }
 }

@@ -11,7 +11,7 @@ class StoreQuestionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'question' => 'required|min:3|max:1000',
+            // 'company_job_id' => ['required','integer'],
+            'question' => ['required','string']
         ];
     }
 }

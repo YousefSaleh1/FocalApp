@@ -12,7 +12,7 @@ class BlogRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,18 +23,15 @@ class BlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required','integer','exists:users,id','min:1','max:10000',],
             'title' => ['required','string','max:255',],
-            'body' => ['required','string','min:10',],
-            'photo' => ['image','mimes:jpeg,png','max:2048','dimensions:min_width=300,min_height=300,max_width=2000,max_height=2000',],
+            'body' => ['required','string'],
+            'photo' => ['nullable ' , 'image ' ,'mimes:png,jpg,jpeg,gif,sug ',' max:2048'],
             'status' => [
                 'required',
                 Rule::in(['draft','post']),
             ],
-
-
-
-
-                ];
+            // 'category_id' => ['required' , 'array']
+            //
+        ];
     }
 }

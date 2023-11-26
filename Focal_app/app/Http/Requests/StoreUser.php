@@ -26,10 +26,6 @@ class StoreUser extends FormRequest
             'email'=>'required|string|email|unique:users',
             'password'=>'required|min:8',
             'role_name' => 'required|string',
-            'status' => [
-                'required',
-                Rule::in(['active', 'disactive']),
-            ],
         ];
     }
 }
