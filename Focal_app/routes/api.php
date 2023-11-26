@@ -46,7 +46,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/Wallet/{userid}', [WalletController::class, 'show']);
     Route::post('/Wallet/AddToWallet/{walletid}', [ProcesseController::class, 'AddToCredit']);
     Route::post('/Wallet/WithdrawFromWallet/{walletid}', [ProcesseController::class, 'WithdrawFromCredit']);
-
+    Route::post('/Wallet/PayToFreelancer/{userid}/', [WalletController::class, 'PayToFreelancer']);
+    Route::post('/Wallet/store/{userid}', [WalletController::class, 'store']);
 
 
     Route::get('user_info', [UserinfoController::class , 'index']);
