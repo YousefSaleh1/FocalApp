@@ -7,12 +7,14 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\BusinessOwnerController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\CityController;
 use App\Http\Controllers\API\FreelancerController;
 use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\JobSeekerController;
 use App\Http\Controllers\API\JopController;
 use App\Http\Controllers\API\ProcesseController;
 use App\Http\Controllers\API\QuestionController;
+use App\Http\Controllers\API\ResumeController;
 use App\Http\Controllers\API\SocialiteController;
 use App\Http\Controllers\API\UserinfoController;
 use App\Http\Controllers\API\WalletController;
@@ -87,10 +89,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/categories/{category}', [CategoryController::class, 'update']);
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
 
+    // this route must be apiResource and his controller the current controller is resource --we need apiResource  controller
     Route::resource('jobseeker', JobSeekerController::class);
 
 
     Route::apiResource('businessOwners', BusinessOwnerController::class);
+    //jwdat
+    Route::apiResource('city', CityController::class);
+    Route::apiResource('Resume', ResumeController::class);
+
 });
 
 
