@@ -17,7 +17,7 @@ use App\Models\Answer;
 use App\Models\JobSeeker;
 
 
-class User extends Authenticatable
+class User extends \TCG\Voyager\Models\User
 {
     use HasApiTokens, HasFactory, Notifiable ,HasRoles;
 
