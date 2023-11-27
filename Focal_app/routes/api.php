@@ -1,25 +1,21 @@
 <?php
 
-use App\Http\Controllers\API\AnswerController;
-use App\Http\Controllers\API\UserinfoController;
-use App\Http\Controllers\API\FreelancerController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BlogController;
-use App\Http\Controllers\API\BlogerController;
 use App\Http\Controllers\API\BusinessOwnerController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CityController;
+use App\Http\Controllers\API\FreelancerController;
 use App\Http\Controllers\API\ComplainController;
-use App\Http\Controllers\API\JobController;
-use App\Http\Controllers\API\JobSeekerController;
 use App\Http\Controllers\API\ProcesseController;
 use App\Http\Controllers\API\QuestionController;
-use App\Http\Controllers\API\ResumeController;
-use App\Http\Controllers\API\SocialiteController;
+use App\Http\Controllers\API\UserinfoController;
 use App\Http\Controllers\API\FilteringController;
-use App\Http\Controllers\API\WalletController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\JobSeekerController;
+use App\Http\Controllers\API\SocialiteController;
 
 
 /*
@@ -112,13 +108,4 @@ Route::post('/filtter_employ',[FilteringController::class,'filtere']);
 Route::post('/filtter_job',[FilteringController::class,'filterj']);
 
 
-Route::get('jobseeker', [JobSeekerController::class , 'index']);
-Route::get('jobseeker/{id}', [JobSeekerController::class , 'show']);
-
-
-
-Route::get('/blogs' , [BlogController::class , 'index']);
-Route::get('/blogs/{id}' , [BlogController::class , 'show']);
 // Route::resource('roles', RoleController::class);
-
-Route::get('activ_jobs ',[JobController::class,'get_active_jops']);
