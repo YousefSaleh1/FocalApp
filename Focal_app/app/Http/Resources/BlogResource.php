@@ -12,16 +12,17 @@ class BlogResource extends JsonResource
 
     public function toArray($request)
     {
-        $user_id = Auth::user()->id;
+        $user_id = $this->user_id;
         $userInfo = UserInfo::where('user_id' , $user_id)->first();
         return [
-            'blogerName' => $userInfo->full_name,
+            'id'            => $this->id,
+            'blogerName'    => $userInfo->full_name,
             'profile_photo' =>asset('photos/' . $userInfo->profile_photo) ,
-            'title' => $this->title,
-            'body' => $this->body,
-            'updated_at' => $this->created_at->format('Y-m-d'),
-            'photo' =>  asset('photos/' . $this->photo),
-            'status' => $this->status,
+            'title'         => $this->title,
+            'body'          => $this->body,
+            'updated_at'    => $this->created_at->format('Y-m-d'),
+            'photo'         => asset('photos/' . $this->photo),
+            'status'        => $this->status,
         ];
     }
 }

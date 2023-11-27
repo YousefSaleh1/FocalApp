@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,15 +15,12 @@ class AnswerResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user = User::find($this->user_id);
         return [
 
             'id'             => $this->id ,
-            'user_id'        => $this->user_id ,
-            'company_job_id' => $this->question ->company_job_id ,
-            'question_id'    => $this->question_id ,
-            'question'       => $this->question ->question ,
+            'email'          => $user->email ,
             'answer'         => $this->answer ,
-            'created_at'     => $this->created_at ,
 
 
         ];

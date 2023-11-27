@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreJobSeeker;
 use App\Http\Resources\JobSeekerResource;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\CreateTrait;
 use App\Models\JobSeeker;
 use Illuminate\Support\Facades\Auth;
 
 class JobSeekerController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait , CreateTrait;
 
     public function index()
     {
@@ -40,9 +41,9 @@ class JobSeekerController extends Controller
             'current_Job_Status'=> $request->current_Job_Status ,
             'salary_range'=> $request->salary_range
         ]);
-
+        $this->CreateWallete($user_id);
         if($jobseeker){
-            return $this->customeRespone(new JobSeekerResource($jobseeker),'the jobseeker created successfully',200);
+            return $this->customeRespone(new JobSeekerResource($jobseeker),'the jobseeker created successfully',201);
         }
         return $this->customeRespone(null,'the jobseeker not added',400);
     }

@@ -10,10 +10,11 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\CreateTrait;
 
 class AuthController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait , CreateTrait;
 
     public function register(StoreUser $request){
 
@@ -24,6 +25,13 @@ class AuthController extends Controller
             'password' => Hash::make($user['password']),
             'role_name' => $user['role_name'],
         ]);
+
+
+        if($user->role_name == 'Freelancer'){
+            $this->CreateFreelancer($user->id);
+        }elseif($user->role_name == 'Bloger'){
+            $this->CreateBloger($user->id);
+        }
 
         $token = $user->createToken('authToken')->plainTextToken;
 

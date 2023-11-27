@@ -5,6 +5,7 @@ use App\Http\Controllers\API\UserinfoController;
 use App\Http\Controllers\API\FreelancerController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BlogController;
+use App\Http\Controllers\API\BlogerController;
 use App\Http\Controllers\API\BusinessOwnerController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CityController;
@@ -44,10 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::get('/Wallet/{userid}', [WalletController::class, 'show']);
-    Route::post('/Wallet/AddToWallet/{walletid}', [ProcesseController::class, 'AddToCredit']);
-    Route::post('/Wallet/WithdrawFromWallet/{walletid}', [ProcesseController::class, 'WithdrawFromCredit']);
-    Route::post('/Wallet/PayToFreelancer/{userid}/', [WalletController::class, 'PayToFreelancer']);
-    Route::post('/Wallet/store/{userid}', [WalletController::class, 'store']);
+    Route::post('/processes' , [ProcesseController::class , 'processe']);
 
 
     Route::get('user_info', [UserinfoController::class , 'index']);
@@ -60,23 +58,26 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/storeAnswer/{question_id}', [AnswerController::class, 'storeAnswer']);
     Route::get('/showAnswer/{question_id}', [AnswerController::class, 'showAnswer']);
 
-    Route::apiResource('/questions', QuestionController::class);
+    Route::post('/questions/{job_id}', [QuestionController::class , 'store']);
+    Route::get('/questions/{id}', [QuestionController::class , 'show']);
+    Route::put('/questions/{id}', [QuestionController::class , 'update']);
+    Route::delete('/questions/{id}', [QuestionController::class , 'destroy']);
     Route::get('/get_job_question/{company_job_id}', [QuestionController::class,'get_questions_for_job']);
 
 
 
-    Route::apiResource('/freelancer', FreelancerController::class);
+    Route::get('/freelancers', [FreelancerController::class , 'index']);
+    Route::get('/freelancers/{id}', [FreelancerController::class , 'show']);
+    Route::delete('/freelancer/{id}', [FreelancerController::class , 'destroy']);
+;
 
-    Route::get('/blogs' , [BlogController::class , 'index']);
     Route::get('/blogs/{status}', [BlogController::class, 'get_status']);
     Route::get('/MyBlogs' , [BlogController::class , 'MyBlogs']);
     Route::post('/blogs', [BlogController::class, 'store']);
-    Route::get('/blogs/{blog}', [BlogController::class, 'show']);
     Route::post('/blogs/{id}', [BlogController::class, 'update']);
     Route::delete('/blogs/{blog}', [BlogController::class, 'destroy']);
 
     Route::resource('jobs',JobController::class);
-    Route::get('activ_jobs ',[JobController::class,'get_active_jops']);
     Route::get('closed_jobs ',[JobController::class,'get_closed_jops']);
     Route::get('wating_jobs ',[JobController::class,'get_wating_jops']);
     Route::get('visitorJob/{id} ',[JobController::class,'visitor']);
@@ -88,8 +89,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/categories/{id}', [CategoryController::class, 'update']);
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
 
-    // this route must be apiResource and his controller the current controller is resource --we need apiResource  controller
-    Route::resource('jobseeker', JobSeekerController::class);
+    Route::post('jobseeker', [JobSeekerController::class , 'store']);
+    Route::put('jobseeker/{id}', [JobSeekerController::class , 'update']);
+    Route::delete('jobseeker/{id}', [JobSeekerController::class , 'destroy']);
 
 
     Route::apiResource('businessOwners', BusinessOwnerController::class);
@@ -104,8 +106,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/complains' , [ComplainController::class , 'store']);
     Route::delete('/complains/{complain}' , [ComplainController::class , 'destroy']);
 });
+
+
 Route::post('/filtter_employ',[FilteringController::class,'filtere']);
 Route::post('/filtter_job',[FilteringController::class,'filterj']);
 
 
+Route::get('jobseeker', [JobSeekerController::class , 'index']);
+Route::get('jobseeker/{id}', [JobSeekerController::class , 'show']);
+
+
+
+Route::get('/blogs' , [BlogController::class , 'index']);
+Route::get('/blogs/{id}' , [BlogController::class , 'show']);
 // Route::resource('roles', RoleController::class);
+
+Route::get('activ_jobs ',[JobController::class,'get_active_jops']);

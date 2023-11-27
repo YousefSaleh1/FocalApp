@@ -22,7 +22,6 @@ class StoreQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'company_job_id' => ['required','integer'],
             'question' => ['required','string']
         ];
     }

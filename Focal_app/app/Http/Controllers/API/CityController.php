@@ -35,7 +35,7 @@ class CityController extends Controller
         ]);
 
         if ($city) {
-            return $this->customeRespone(new CityResource($city), 'Successful', 200);
+            return $this->customeRespone(new CityResource($city), 'Successful', 201);
         }
         return $this->customeRespone(null, 'not found', 404);
     }

@@ -45,7 +45,7 @@ class ResumeController extends Controller
         ]);
 
         if ($resume) {
-            return $this->customeRespone(new ResumeResources($resume), 'the resume created successfully', 200);
+            return $this->customeRespone(new ResumeResources($resume), 'the resume created successfully', 201);
         }
         return $this->customeRespone(null, 'the resume not added', 400);
     }

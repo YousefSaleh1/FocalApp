@@ -11,9 +11,11 @@ class Category extends Model
 
     protected $fillable = [
         'title'
-];
+    ];
 
-public function blog(){
-    return $this->morphMany(Blog::class,'categorizable');
-}
+    public function blogs()
+    {
+
+        return $this->belongsToMany(Blog::class, 'category_blog');
+    }
 }

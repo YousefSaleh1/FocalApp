@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Blog extends Model
 {
     use HasFactory;
-    protected $fillable=[
+    protected $fillable = [
         'user_id',
         'title',
         'body',
@@ -20,7 +20,8 @@ class Blog extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-    public function categoriestable(){
-        return $this->morphTo();
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_blog');
     }
 }

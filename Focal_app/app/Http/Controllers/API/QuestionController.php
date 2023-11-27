@@ -15,32 +15,27 @@ use Illuminate\Support\Facades\Auth;
 class QuestionController extends Controller
 {
     use ApiResponseTrait;
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $questions = Question::all();
-        return $this->customeRespone(QuestionResource::collection($questions), 'all questions', 200);
-    }
-
 
     /**
      * Store a newly created resource in storage.
      */
 
-    public function store(StoreQuestionRequest $request)
+    public function store(StoreQuestionRequest $request , string $job_id)
     {
+        $job = CompanyJob::find($job_id);
+        if(!$job){
+            return $this->customeRespone(null , 'this job not found' , 400);
+        }
 
         $validation = $request->validated();
 
         $question = Question::Create([
-            'company_job_id' => 2,
+            'company_job_id' => $job_id,
             'question' => $request->question,
 
         ]);
         if ($question) {
-            return $this->customeRespone(new QuestionResource($question),'Created successfully', 200);
+            return $this->customeRespone(new QuestionResource($question),'Created successfully', 201);
         } else {
             return $this->customeRespone('','not added', 400);
         }

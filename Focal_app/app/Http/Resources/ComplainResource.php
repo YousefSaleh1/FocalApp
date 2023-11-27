@@ -17,6 +17,7 @@ class ComplainResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id'               => $this->id,
             'email'            => Auth::user()->email,
             'complain_type'    => $this->complain_type ,
             'complain_reason'  => $this->complain_reason ,

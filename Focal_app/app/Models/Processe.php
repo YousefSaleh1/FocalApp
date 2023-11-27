@@ -9,7 +9,7 @@ class Processe extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'walet_id',
+        'wallet_id',
         'contact_number',
         'amount',
         'sender_name',

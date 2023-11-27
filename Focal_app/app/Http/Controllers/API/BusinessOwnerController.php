@@ -7,13 +7,14 @@ use App\Http\Requests\StorBusinessOwnerRequest;
 use App\Http\Resources\BusinessOwnerResource;
 use App\Models\BusinessOwner;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\CreateTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
 class BusinessOwnerController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait , CreateTrait;
 
     /**
      * Display a listing of the resource.
@@ -33,10 +34,10 @@ class BusinessOwnerController extends Controller
     {
         $validation = $request->validated();
 
-        $id=Auth::user()->id;
+        $user_id=Auth::user()->id;
 
         $businessOwner = BusinessOwner::create([
-            "user_id"               =>$id,
+            "user_id"               =>$user_id,
             "company_name"          =>$request->company_name,
             "company_field"         =>$request->company_field,
             "company_size"          =>$request->company_size,
@@ -45,8 +46,9 @@ class BusinessOwnerController extends Controller
             "company_number"        =>$request->company_number,
             "website"               =>$request->website,
         ]);
+        $this->CreateWallete($user_id);
         if($businessOwner){
-            return $this->customeRespone(new BusinessOwnerResource($businessOwner),'Created successfully',200);
+            return $this->customeRespone(new BusinessOwnerResource($businessOwner),'Created successfully',201);
         }else{
             return $this->customeRespone('','not created',400);
         }

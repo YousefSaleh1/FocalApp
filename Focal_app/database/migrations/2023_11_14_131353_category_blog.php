@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categorizables', function (Blueprint $table) {
+        Schema::create('category_blog', function (Blueprint $table) {
             $table->id();
             $table->foreignId('blog_id')->constrained('blogs')->cascadeOnDelete();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categorizables');
+        Schema::dropIfExists('category_blog');
     }
 };

@@ -17,6 +17,7 @@ class UserinfoResource extends JsonResource
     {
         $city = City::find($this->city_id);
         return [
+            'id'                => $this->id,
             'full_name'         => $this->full_name,
             'city_id'           => $city->city_name,
             'phone_number'      => $this->phone_number,

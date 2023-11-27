@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Freelancer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,15 +16,11 @@ class FreelancerResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user = User::find($this->user_id);
+        $userInfo = $user->user_info;
         return [
-            "id" => $this->id,
-            "user_id" => [
-                "id" => $this->user_id,
-                "full_name" => $this->full_name,
-                "email" => $this->email,
-                "status" => $this->status,
-                "role_name" => $this->role_name,
-            ],
+            'id'               => $this->id ,
+            'freelancer infos' => new UserinfoResource($userInfo),
         ];
     }
 }

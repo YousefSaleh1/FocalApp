@@ -15,6 +15,7 @@ class BusinessOwnerResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            "id"                    => $this->id,
             "company_name"          => $this->company_name,
             "company_field"         => $this->company_field,
             "company_size"          => $this->company_size,

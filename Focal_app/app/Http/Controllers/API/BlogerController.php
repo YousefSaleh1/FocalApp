@@ -18,39 +18,21 @@ class BlogerController extends Controller
     public function index()
     {
 
-        $blogers = User::where('role_name' , 'bloger')->get();
-        $blogers_info = $blogers->user_info()->get();
-        return $this->customeRespone(BlogerResource::collection($blogers_info) ,"" , 200)  ;
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $bloger = new Bloger;
-        $bloger->id = $request->id;
-        $bloger->save();
-        return response()->json($bloger, 200);
+        $blogers = Bloger::all();
+        return $this->customeRespone(BlogerResource::collection($blogers) ,"All Retrieve Blogers Success" , 200)  ;
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Bloger $bloger)
-    {
-        return response()->json(new BlogerResource($bloger), 200);
-    }
+    {;
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Bloger $bloger)
-    {
-        $bloger->update([
-            'user_id' => $request->user_id,
-        ]);
-        return response()->json($bloger, 200);
+        if (!$bloger) {
+            return $this->customeRespone(null, 'Bloger Not Found!', 401);
+        }
+
+        return $this->customeRespone(new BlogerResource($bloger), 'Show Bloger Info.', 200);
     }
 
     /**
@@ -58,7 +40,13 @@ class BlogerController extends Controller
      */
     public function destroy(Bloger $bloger)
     {
+
+        if (!$bloger) {
+            return $this->customeRespone(null, 'bloger Not Found!', 401);
+        }
+
         $bloger->delete();
-        return response()->json($bloger, 200);
+
+        return $this->customeRespone(new BlogerResource($bloger), 'Deleted Freelance Successfully.', 200);
     }
 }

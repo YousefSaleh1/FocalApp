@@ -11,12 +11,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Traits\ApiResponseTrait;
+use App\Http\Traits\NotificationTrait;
 use App\Http\Traits\UploadPhotoTrait;
 use Illuminate\Support\Facades\Notification;
 
 class BlogController extends Controller
 {
-    use ApiResponseTrait, UploadPhotoTrait;
+    use ApiResponseTrait, UploadPhotoTrait , NotificationTrait;
 
     /**
      * Display a listing of the resource.
@@ -47,30 +48,21 @@ class BlogController extends Controller
             'photo' => $path,
             'status' => $request->status,
         ]);
+        if ($request->has('categories')) {
+            $blog->categories()->attach($request->input('categories'));
+        }
 
-        $blog_id = Blog::latest()->first();
+        $this->BlogNotification($blog);
 
-        $users = User::all();
-
-        $notification = new AddNewBlog($blog);
-        Notification::send($users,$notification);
-        return $this->customeRespone([
-            'blog' => new BlogResource($blog),
-            'notification' => [
-                'title' => $notification->toArray($users[0])['title'], // Assuming you want the title of the first user
-                'user' => $notification->toArray($users[0])['user'],
-            ],
-        ], "Blog Created Successfully", 200);
-
-        // return $this->customeRespone(new BlogResource($blog), "Blog Created Successfuly", 200);
+        return $this->customeRespone(new BlogResource($blog), "Blog Created Successfuly", 201);
     }
 
-    public function show($id)
-    {
-        if ($blog) {
-            return $this->customeRespone(new BlogResource($blog), 'ok', 200);
+    public function show(string $id){
+        $blog = Blog::find($id);
+        if($blog){
+            return $this->customeRespone(new BlogResource($blog), "Done!", 200);
         }
-        return $this->customeRespone(null, 'blog not found', 404);
+        return $this->customeRespone(null, "not found", 404);
     }
 
     public function update(BlogRequest $request,string $id)

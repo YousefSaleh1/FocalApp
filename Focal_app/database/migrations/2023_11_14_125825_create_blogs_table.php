@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('title');
             $table->string('body');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->enum('status',['draft','post']);
             $table->timestamps();
         });

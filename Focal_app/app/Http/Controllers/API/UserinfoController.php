@@ -52,7 +52,7 @@ class UserinfoController extends Controller
         ]);
 
         if ($user_info) {
-            return $this->apiResponse(new UserinfoResource($user_info), "", 'Successfully Created', 200);
+            return $this->apiResponse(new UserinfoResource($user_info), "", 'Successfully Created', 201);
 
         return $this->customeRespone(null,'Failed To Create', 400);
     }

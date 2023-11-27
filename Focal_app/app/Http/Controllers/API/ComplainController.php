@@ -40,7 +40,7 @@ class ComplainController extends Controller
 
 
         if ($complain) {
-            return $this->customeRespone(new ComplainResource($complain), 'Successful', 200);
+            return $this->customeRespone(new ComplainResource($complain), 'Successful', 201);
         }
         return $this->customeRespone(null, 'not found', 404);
     }

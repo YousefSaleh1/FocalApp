@@ -8,20 +8,21 @@ use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Traits\ApiResponseTrait;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-    use ApiResponseTrait ;
+    use ApiResponseTrait;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-                   // Query the desired data
-                   $category = Category::all();
-                    // return $category ;
-                   // Return a JSON response
-                   return response()->json($category);
+        // Query the desired data
+        $categories = Category::all();
+        // return $category ;
+        // Return a JSON response
+        return $this->customeRespone(CategoryResource::collection($categories), 'Done!', 200);
     }
 
     /**
@@ -29,47 +30,47 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-      $category = Category::create([
-        'title' => $request->title,
-      ]);
+        $user = Auth::user();
+        if ($user->role_name = 'admin') {
+            $category = Category::create([
+                'title' => $request->title,
+            ]);
 
-      return new CategoryResource($category);
+            return $this->customeRespone(new CategoryResource($category), 'Category Created Successfuly', 201);
+        }
+        return $this->customeRespone(null, 'Sorry, you do not have permission for this', 401);
     }
 
     public function show($id)
     {
-      $category = Category::find($id);
+        $category = Category::find($id);
+        $category->load('blogs');
 
-      return $this->customeRespone($category,['show category is done'],200);
+        return $this->customeRespone(null, 'show category is done', 200);
     }
 
-    public function update(CategoryRequest $request,$id)
+    public function update(CategoryRequest $request, $id)
     {
-      $category = Category::find($id);
-          $validatedData = $request->validate([
-         'title' =>'required','string','max:255',
-                ]);
+        $user = Auth::user();
+        if ($user->role_name = 'admin') {
+            $category = Category::find($id);
 
-       $category->update($validatedData);
-
-       $updatedAt = $category->updated_at;
+            $category->update($request->all());
 
 
-    return response()->json([
-    'message' => 'Resource updated successfully',
-    'updated_at' => $updatedAt,
-    ]);
-
+            return $this->customeRespone(new CategoryResource($category), 'Category Updated Successfuly', 201);
+        }
+        return $this->customeRespone(null, 'Sorry, you do not have permission for this', 401);
     }
 
     public function destroy($id)
     {
-      $category= Category::find($id);
-      if(auth()->user()->hasRole('admin')){
-          $category->delete();
-      return response()->json(['message'=>'category was deleted'],200) ;
-          }
-      return response()->json(['error'=>'you do not have permission to delete this category,,,,sorry'], 403);
+        $category = Category::find($id);
+        $user = Auth::user();
+        if ($user->role_name == 'admin') {
+            $category->delete();
+            return response()->json(['message' => 'category was deleted'], 200);
+        }
+        return response()->json(['error' => 'you do not have permission to delete this category,,,,sorry'], 403);
     }
-
 }
