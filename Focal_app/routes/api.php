@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::get('/Wallet/{id}', [WalletController::class, 'show']);
-    Route::put('/Wallet/{id}', [WalletController::class, 'update']);
+    Route::post('/Wallet/{id}', [WalletController::class, 'update']);
     Route::post('/processes', [ProcesseController::class, 'processe']);
 
 
