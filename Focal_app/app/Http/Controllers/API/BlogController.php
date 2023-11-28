@@ -52,9 +52,10 @@ class BlogController extends Controller
             $blog->categories()->attach($request->input('categories'));
         }
 
-        $this->BlogNotification($blog);
+        $responce = $this->BlogNotification($blog);
+        return $responce;
 
-        return $this->customeRespone(new BlogResource($blog), "Blog Created Successfuly", 201);
+        // return $this->customeRespone(new BlogResource($blog), "Blog Created Successfuly", 201);
     }
 
     public function show(string $id){

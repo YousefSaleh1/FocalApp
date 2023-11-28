@@ -16,7 +16,7 @@ trait NotificationTrait
     public function BlogNotification($blog)
     {
         $users = User::all();
-
+        $blog->load('categories');
         $notification = new AddNewBlog($blog);
         Notification::send($users, $notification);
         return $this->customeRespone([

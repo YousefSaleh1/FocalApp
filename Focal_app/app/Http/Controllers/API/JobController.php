@@ -40,7 +40,7 @@ class JobController extends Controller
         $wallet = Wallet::where('user_id', $user_id)->first();
 
         // $admin = User::where('role_name',["admin"])->first();
-        $admin_wallet = Wallet::where('user_id',2)->first();
+        $admin_wallet = Wallet::where('user_id',1)->first();
 
         if ($request->help == 0 && $wallet->current > 0 && $wallet->current >= 25000) {
 
@@ -53,8 +53,9 @@ class JobController extends Controller
 
             DB::commit();
 
-            $this->JobNotification($job);
-            return $this->apiResponse(new JobResource($job), '', 'registered successfully & withdraw 25000 sp', 201);
+            $response = $this->JobNotification($job);
+            return $response;
+            // return $this->apiResponse(new JobResource($job), '', 'registered successfully & withdraw 25000 sp', 201);
         } elseif ($wallet->current > 0 && $wallet->current >= 35000) {
 
             DB::beginTransaction();
@@ -66,8 +67,9 @@ class JobController extends Controller
 
             DB::commit();
 
-            $this->JobNotification($job);
-            return $this->apiResponse(new JobResource($job), '', 'registered successfully & withdraw 35000 sp', 201);
+            $responce = $this->JobNotification($job);
+            return $responce;
+            // return $this->apiResponse(new JobResource($job), '', 'registered successfully & withdraw 35000 sp', 201);
         }
 
         return $this->apiResponse(null, '', ' job are not registered successfully', 400);
