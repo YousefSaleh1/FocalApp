@@ -93,7 +93,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('businessOwners', BusinessOwnerController::class);
 
     Route::apiResource('city', CityController::class);
-    Route::apiResource('Resume', ResumeController::class);
+
+    Route::get('Resume/{id}', [ResumeController::class , 'show']);
+    Route::post('Resume', [ResumeController::class , 'store']);
+    Route::put('Resume/{id}',[ ResumeController::class , 'update']);
+    Route::delete('Resume/{id}', [ResumeController::class , 'destroy']);
 
 
     Route::get('/complains', [ComplainController::class, 'index']);

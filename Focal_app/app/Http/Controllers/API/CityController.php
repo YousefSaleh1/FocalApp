@@ -8,6 +8,7 @@ use App\Http\Traits\ApiResponseTrait;
 use App\Http\Resources\CityResource;
 use App\Http\Requests\StoreCity;
 use App\Models\City;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -29,15 +30,17 @@ class CityController extends Controller
     public function store(StoreCity $request)
     {
         $validate = $request->validated();
+        $user = Auth::user();
+        if ($user->role_name = 'admin') {
+            $city = City::create([
+                'city_name' => $request->city_name,
+            ]);
 
-        $city = City::create([
-            'city_name' => $request->city_name,
-        ]);
-
-        if ($city) {
-            return $this->customeRespone(new CityResource($city), 'Successful', 201);
+            if ($city) {
+                return $this->customeRespone(new CityResource($city), 'Successful', 201);
+            }
         }
-        return $this->customeRespone(null, 'not found', 404);
+        return $this->customeRespone(null, 'Sorry, you do not have permission for this', 401);
     }
 
     /**
@@ -59,21 +62,29 @@ class CityController extends Controller
      */
     public function update(StoreCity $request, string $id)
     {
-        $city = City::find($id);
-        if (!$city) {
-            return $this->customeRespone(null, 'not found', 404);
-        }
-        $validate = $request->validated();
+        $user = Auth::user();
+        if ($user->role_name = 'admin') {
+            $city = City::find($id);
+            if (!$city) {
+                return $this->customeRespone(null, 'not found', 404);
+            }
+            $validate = $request->validated();
 
-        $city->update($validate);
-        return $this->customeRespone(new CityResource($city), 'Successfully Updated', 200);
+            $city->update($validate);
+            return $this->customeRespone(new CityResource($city), 'Successfully Updated', 200);
+        }
+        return $this->customeRespone(null, 'Sorry, you do not have permission for this', 401);
     }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(City $city)
     {
-        $city->delete();
-        return $this->customeRespone(null, 'deleted', 200);
+        $user = Auth::user();
+        if ($user->role_name = 'admin') {
+            $city->delete();
+            return $this->customeRespone(null, 'deleted', 200);
+        }
+        return $this->customeRespone(null, 'Sorry, you do not have permission for this', 401);
     }
 }

@@ -16,14 +16,7 @@ use Illuminate\Support\Facades\Validator;
 class ResumeController extends Controller
 {
     use ApiResponseTrait;
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $resumes = ResumeResources::collection(Resume::get());
-        return  $this->customeRespone($resumes, 'ok', 200);
-    }
+
 
 
     /**

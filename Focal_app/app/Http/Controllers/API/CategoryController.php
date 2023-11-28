@@ -18,10 +18,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // Query the desired data
         $categories = Category::all();
-        // return $category ;
-        // Return a JSON response
+
         return $this->customeRespone(CategoryResource::collection($categories), 'Done!', 200);
     }
 
@@ -44,9 +42,11 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = Category::find($id);
-
-        $category->load('blogs');
-        return $this->customeRespone(new CategoryResource($category), 'show category is done', 200);
+        if ($category) {
+            $category->load('blogs');
+            return $this->customeRespone(new CategoryResource($category), 'show category is done', 200);
+        }
+        return response()->json(['message' => 'category not found '], 404);
     }
 
     public function update(CategoryRequest $request, $id)
@@ -54,21 +54,27 @@ class CategoryController extends Controller
         $user = Auth::user();
         if ($user->role_name = 'admin') {
             $category = Category::find($id);
-            $category->update($request->all());
+            if ($category) {
+                $category->update($request->all());
 
 
-            return $this->customeRespone(new CategoryResource($category), 'Category Updated Successfuly', 201);
+                return $this->customeRespone(new CategoryResource($category), 'Category Updated Successfuly', 200);
+            }
+            return response()->json(['message' => 'category not found '], 404);
         }
         return $this->customeRespone(null, 'Sorry, you do not have permission for this', 401);
     }
 
     public function destroy($id)
     {
-        $category = Category::find($id);
         $user = Auth::user();
         if ($user->role_name == 'admin') {
-            $category->delete();
-            return response()->json(['message' => 'category was deleted'], 200);
+            $category = Category::find($id);
+            if ($category) {
+                $category->delete();
+                return response()->json(['message' => 'category was deleted'], 200);
+            }
+            return response()->json(['message' => 'category not found '], 404);
         }
         return response()->json(['error' => 'you do not have permission to delete this category,,,,sorry'], 403);
     }
