@@ -43,6 +43,7 @@ class JobController extends Controller
         $admin_wallet = Wallet::where('user_id',2)->first();
 
         if ($request->help == 0 && $wallet->current > 0 && $wallet->current >= 25000) {
+
             DB::beginTransaction();
 
             $job = $this->CreateJob($request, $business_owner_id);
@@ -55,6 +56,7 @@ class JobController extends Controller
             $this->JobNotification($job);
             return $this->apiResponse(new JobResource($job), '', 'registered successfully & withdraw 25000 sp', 201);
         } elseif ($wallet->current > 0 && $wallet->current >= 35000) {
+
             DB::beginTransaction();
 
             $job = $this->CreateJob($request, $business_owner_id);

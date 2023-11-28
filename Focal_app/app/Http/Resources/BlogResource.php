@@ -23,6 +23,7 @@ class BlogResource extends JsonResource
             'updated_at'    => $this->created_at->format('Y-m-d'),
             'photo'         => asset('photos/' . $this->photo),
             'status'        => $this->status,
+            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
         ];
     }
 }

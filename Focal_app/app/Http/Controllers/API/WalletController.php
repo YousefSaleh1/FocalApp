@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\WalletResource;
 use App\Http\Traits\ApiResponseTrait;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
@@ -14,13 +15,13 @@ class WalletController extends Controller
 
 
 
-    public function show(Request $request)
+    public function show(string $id)
     {
-        $userwalet = Wallet::where('user_id', $request->user_id)->get();
+        $userwalet = Wallet::find($id);
         if ($userwalet) {
-            return $this->apiResponse($userwalet, '', 'we found user wallet', 200);
+            return $this->customeRespone(new WalletResource($userwalet),'we found user wallet', 200);
         }
-        return $this->apiResponse(null, '', 'sorry we dont found wallet', 400);
+        return $this->customeRespone(null,'sorry we dont found wallet', 400);
     }
 
     public function update(Request $request, string $id)

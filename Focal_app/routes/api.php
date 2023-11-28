@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AnswerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\API\JobController;
@@ -15,8 +16,9 @@ use App\Http\Controllers\API\QuestionController;
 use App\Http\Controllers\API\UserinfoController;
 use App\Http\Controllers\API\FilteringController;
 use App\Http\Controllers\API\JobSeekerController;
+use App\Http\Controllers\API\ResumeController;
 use App\Http\Controllers\API\SocialiteController;
-
+use App\Http\Controllers\API\WalletController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +42,8 @@ Route::get('login/{provider}/callback', [SocialiteController::class, 'handleProv
 Route::middleware('auth:sanctum')->group(function () {
 
 
-    Route::get('/Wallet/{userid}', [WalletController::class, 'show']);
+    Route::get('/Wallet/{id}', [WalletController::class, 'show']);
+    Route::put('/Wallet/{id}', [WalletController::class, 'update']);
     Route::post('/processes', [ProcesseController::class, 'processe']);
 
 
@@ -64,7 +67,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/freelancers', [FreelancerController::class, 'index']);
     Route::get('/freelancers/{id}', [FreelancerController::class, 'show']);
-    Route::delete('/freelancer/{id}', [FreelancerController::class, 'destroy']);;
+    Route::delete('/freelancer/{id}', [FreelancerController::class, 'destroy']);
 
     Route::get('/blogs/{status}', [BlogController::class, 'get_status']);
     Route::get('/MyBlogs', [BlogController::class, 'MyBlogs']);
@@ -110,7 +113,7 @@ Route::get('jobseeker', [JobSeekerController::class, 'index']);
 Route::get('jobseeker/{id}', [JobSeekerController::class, 'show']);
 
 Route::get('/blogs', [BlogController::class, 'index']);
-Route::get('/blogs/{id}', [BlogController::class, 'show']);
+Route::get('/blog/{id}', [BlogController::class, 'show']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{id}', [CategoryController::class, 'show']);

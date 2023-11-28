@@ -5,19 +5,19 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class WalletResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
      * @return array<string, mixed>
      */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         return [
-            "id"    => $this->id,
-            'title' => $this->title,
-            'blogs' => BlogResource::collection($this->whenLoaded('blogs')),
+            'id'       => $this->id,
+            'current'  => $this->current,
+            'point'    => $this->point
         ];
     }
 }

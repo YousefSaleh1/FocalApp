@@ -25,10 +25,10 @@ class BlogController extends Controller
     public function index()
     {
         // Retrieve blogs
-        $blogs = Blog::all();
+        $blogs = Blog::where('status' , 'post')->get();
 
         // Return the blogs as a response
-        return $this->customeRespone(BlogResource::collection($blogs), "gone!", 200);
+        return $this->customeRespone(BlogResource::collection($blogs), "Done!", 200);
     }
 
     public function store(BlogRequest $request)
@@ -60,6 +60,7 @@ class BlogController extends Controller
     public function show(string $id){
         $blog = Blog::find($id);
         if($blog){
+            $blog->load('categories');
             return $this->customeRespone(new BlogResource($blog), "Done!", 200);
         }
         return $this->customeRespone(null, "not found", 404);

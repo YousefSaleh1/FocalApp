@@ -44,9 +44,9 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = Category::find($id);
-        $category->load('blogs');
 
-        return $this->customeRespone(null, 'show category is done', 200);
+        $category->load('blogs');
+        return $this->customeRespone(new CategoryResource($category), 'show category is done', 200);
     }
 
     public function update(CategoryRequest $request, $id)
@@ -54,7 +54,6 @@ class CategoryController extends Controller
         $user = Auth::user();
         if ($user->role_name = 'admin') {
             $category = Category::find($id);
-
             $category->update($request->all());
 
 
