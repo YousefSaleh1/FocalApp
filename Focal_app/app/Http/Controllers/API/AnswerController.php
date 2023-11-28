@@ -58,7 +58,7 @@ class AnswerController extends Controller
         ]);
 
 
-        return $this->customeRespone($answer,'done!', 201);
+        return $this->customeRespone(new AnswerResource($answer),'done!', 201);
     }
 
 

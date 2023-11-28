@@ -53,11 +53,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('user_info/{id}', [UserinfoController::class, 'update']);
     Route::delete('user_info/{id}', [UserinfoController::class, 'destroy']);
 
-    Route::get('/ShowJobQandA/{jop_id}', [AnswerController::class, 'ShowJobQandA']);
+    Route::get('/ShowJobQandA/{company_job_id}', [AnswerController::class, 'ShowJobQandA']);
     Route::post('/storeAnswer/{question_id}', [AnswerController::class, 'storeAnswer']);
     Route::get('/showAnswer/{question_id}', [AnswerController::class, 'showAnswer']);
 
-    Route::post('/questions/{job_id}', [QuestionController::class, 'store']);
+    Route::post('/questions/{company_job_id}', [QuestionController::class, 'store']);
     Route::get('/questions/{id}', [QuestionController::class, 'show']);
     Route::put('/questions/{id}', [QuestionController::class, 'update']);
     Route::delete('/questions/{id}', [QuestionController::class, 'destroy']);

@@ -59,7 +59,6 @@ class QuestionController extends Controller
         $question = Question::findOrFail($id);
 
         $question->update([
-            'company_job_id' => $request->company_job_id,
             'question' => $request->question
         ]);
         if ($question) {

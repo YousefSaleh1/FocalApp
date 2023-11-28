@@ -112,7 +112,6 @@ class JobController extends Controller
             'address' => $request->address,
             'work_hour' => $request->work_hour,
             'salary_range' => $request->salary_range,
-            'help' => $request->help,
             'job_discription' => $request->job_discription,
             'job_requirement' => $request->job_requirement,
             'status' => $request->status,
@@ -138,11 +137,6 @@ class JobController extends Controller
         return $this->customeRespone('', 'the jop is deleted', 200);
     }
 
-    public function visitor($id)
-    {
-        $visitor = CompanyJob::withTotalVisitCount()->where('id', $id)->first()->visit_count_total;
-        return $this->customeRespone($visitor, 'visitor job', 200);
-    }
 
     public function get_active_jops()
     {
