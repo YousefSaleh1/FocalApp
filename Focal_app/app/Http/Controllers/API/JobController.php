@@ -39,8 +39,8 @@ class JobController extends Controller
 
         $wallet = Wallet::where('user_id', $user_id)->first();
 
-        $admin = User::where('role_name', 'admin');
-        $admin_wallet = Wallet::where('user_id', $admin->id)->first();
+        // $admin = User::where('role_name',["admin"])->first();
+        $admin_wallet = Wallet::where('user_id',2)->first();
 
         if ($request->help == 0 && $wallet->current > 0 && $wallet->current >= 25000) {
             DB::beginTransaction();

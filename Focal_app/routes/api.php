@@ -78,9 +78,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('visitorJob/{id} ', [JobController::class, 'visitor']);
 
 
-    Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/categories', [CategoryController::class, 'store']);
-    Route::get('/categories/{id}', [CategoryController::class, 'show']);
     Route::put('/categories/{id}', [CategoryController::class, 'update']);
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
 
@@ -91,7 +89,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('businessOwners', BusinessOwnerController::class);
 
-    //jwdad
     Route::apiResource('city', CityController::class);
     Route::apiResource('Resume', ResumeController::class);
 
@@ -114,3 +111,6 @@ Route::get('jobseeker/{id}', [JobSeekerController::class, 'show']);
 
 Route::get('/blogs', [BlogController::class, 'index']);
 Route::get('/blogs/{id}', [BlogController::class, 'show']);
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories/{id}', [CategoryController::class, 'show']);
