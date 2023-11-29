@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('job_title');
             $table->enum('job_role',['BackEnd Dev','FrontEnd Dev','Graphics Designer','Content Creator','Digital Marketing']);
             $table->enum('job_level',['Beginner','Junior','Mid','Senior','Expert']);
-            $table->string('experience');
+            $table->integer('experience');
             $table->enum('education_level',['highSchoolDiploma','collegeDegree','MasterDegree','A Ph.D']);
             $table->enum('language',['English','Arabic','French'])->nullable();
             $table->enum('age_range',['20-25','25-30','30-35','35-40']);

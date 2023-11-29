@@ -110,6 +110,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/filtter_employ', [FilteringController::class, 'filtere']);
 Route::post('/filtter_job', [FilteringController::class, 'filterj']);
+Route::get('/filtter_blogs', [FilteringController::class, 'filterBlogs']);
 
 
 // Route::resource('roles', RoleController::class);

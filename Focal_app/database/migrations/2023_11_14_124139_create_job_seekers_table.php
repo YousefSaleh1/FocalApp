@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('gender',['male','female','no_profrence'])->nullable();
             $table->enum('field_of_work',['UI/UX','graphicDesign','flutter','frontend_developer','digital_marketing','backend_developer']);
             $table->enum('job_level',['beginner','junior','mid','Senior','expert'])->nullable();
-            $table->string('experience')->nullable();
+            $table->integer('experience')->nullable();
             $table->enum('work_type',['full Time','partTime','Remotely','trainee']);
             $table->enum('education_level',['highSchoolDiploma','collegeDegree','MasterDegree','A Ph.D'])->nullable();
             $table->enum('current_Job_Status',['openToWork','emlpoyee'])->nullable();

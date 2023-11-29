@@ -25,7 +25,7 @@ class JobRequest extends FormRequest
             'job_title' => 'required|string',
             'job_role' => ['required',Rule::in(['BackEnd Dev','FrontEnd Dev','Graphics Designer','Content Creator','Digital Marketing']),],
             'job_level'=>['required',Rule::in(['Beginner','Junior','Mid','Senior','Expert']),],
-            'experience'=>['required','string'],
+            'experience'=>['required','integer'],
             'education_level'=>['required',Rule::in(['highSchoolDiploma','collegeDegree','MasterDegree','A Ph.D']),],
             'language'=>['required',Rule::in(['English','Arabic','French']),],
             'age_range'=>['required',Rule::in(['20-25','25-30','30-35','35-40']),],

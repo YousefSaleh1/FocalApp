@@ -64,7 +64,7 @@ class FilteringController extends Controller
         $validatedData = $request->validate([
             'job_role'        => ['sometimes',Rule::in(['BackEnd Dev','FrontEnd Dev','Graphics Designer','Content Creator','Digital Marketing']),],
             'job_level'       =>['sometimes',Rule::in(['Beginner','Junior','Mid','Senior','Expert']),],
-            'experience'      =>['sometimes','string'],
+            'experience'      =>['sometimes','integer'],
             'education_level' =>['sometimes',Rule::in(['highSchoolDiploma','collegeDegree','MasterDegree','A Ph.D']),],
             'language'        =>['sometimes',Rule::in(['English','Arabic','French']),],
             'gender'          =>['sometimes',Rule::in(['male','female','no_profrence']),],
