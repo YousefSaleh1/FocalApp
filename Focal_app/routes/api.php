@@ -19,6 +19,7 @@ use App\Http\Controllers\API\JobSeekerController;
 use App\Http\Controllers\API\ResumeController;
 use App\Http\Controllers\API\SocialiteController;
 use App\Http\Controllers\API\WalletController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,7 @@ Route::get('login/{provider}', [SocialiteController::class, 'redirectToProvider'
 Route::get('login/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
 
 Route::middleware('auth:sanctum')->group(function () {
-
+    Route::post('logout' , [AuthController::class , 'logout']);
 
     Route::get('/Wallet/{id}', [WalletController::class, 'show']);
     Route::post('/Wallet/{id}', [WalletController::class, 'update']);
