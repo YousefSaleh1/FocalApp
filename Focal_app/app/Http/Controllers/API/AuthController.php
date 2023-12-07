@@ -10,15 +10,11 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Traits\ApiResponseTrait;
 use App\Http\Traits\CreateTrait;
-use Laravel\Sanctum\PersonalAccessToken;
-
 use Illuminate\Support\Facades\Auth;
-use Laravel\Sanctum\HasApiTokens;
-use Laravel\Sanctum\Sanctum;
 
 class AuthController extends Controller
 {
-    use ApiResponseTrait, CreateTrait, HasApiTokens;
+    use ApiResponseTrait, CreateTrait;
 
     public function register(StoreUser $request)
     {
@@ -59,5 +55,12 @@ class AuthController extends Controller
         return $this->apiResponse(new UserResource($user), $token, 'successfully login,welcome!', 200);
     }
 
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
 
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
+    }
 }

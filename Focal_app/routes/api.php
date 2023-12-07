@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BlogController;
+use App\Http\Controllers\API\BlogerController;
 use App\Http\Controllers\API\BusinessOwnerController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CityController;
@@ -35,13 +36,13 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('login/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('login/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('logout' , [AuthController::class , 'logout']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::get('/Wallet/{id}', [WalletController::class, 'show']);
     Route::post('/Wallet/{id}', [WalletController::class, 'update']);
@@ -69,6 +70,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/freelancers', [FreelancerController::class, 'index']);
     Route::get('/freelancers/{id}', [FreelancerController::class, 'show']);
     Route::delete('/freelancer/{id}', [FreelancerController::class, 'destroy']);
+
+    Route::get('/blogers', [BlogerController::class, 'index']);
+    Route::get('/bloger/{id}', [BlogerController::class, 'show']);
+    Route::delete('/bloger/{id}', [BlogerController::class, 'destroy']);
 
     Route::get('/blogs/{status}', [BlogController::class, 'get_status']);
     Route::get('/MyBlogs', [BlogController::class, 'MyBlogs']);
