@@ -58,9 +58,8 @@ class BusinessOwnerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(BusinessOwner $businessOwner)
     {
-        $businessOwner = BusinessOwner::findOrFail($id);
 
         return $this->customeRespone(new BusinessOwnerResource($businessOwner),'Show successfully',200);
     }

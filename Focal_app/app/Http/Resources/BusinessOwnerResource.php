@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,6 +15,7 @@ class BusinessOwnerResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $userInfo = UserInfo::where('user_id' , $this->user_id)->first();
         return [
             "id"                    => $this->id,
             "company_name"          => $this->company_name,
@@ -23,6 +25,7 @@ class BusinessOwnerResource extends JsonResource
             "responsible_job_role"  => $this->responsible_job_role,
             "company_number"        => $this->company_number,
             "website"               => $this->website,
+            "user_info"             => new UserinfoResource($userInfo) ,
         ];
     }
 }

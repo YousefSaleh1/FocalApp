@@ -17,7 +17,6 @@ class JobSeekerResource extends JsonResource
     public function toArray(Request $request): array
     {
         $userInfo = UserInfo::where('user_id' , $this->user_id)->first();
-        $resume = Resume::where('job_seeker_id' , $this->id)->first();
         return [
             'id'                 => $this->id,
             'job_title'          => $this->job_title,
@@ -32,7 +31,6 @@ class JobSeekerResource extends JsonResource
             'current_Job_Status' => $this->current_Job_Status ,
             'salary_range'       => $this->salary_range,
             'userInfo'           => new UserinfoResource($userInfo),
-            'resume'             => new ResumeResources($resume)
         ];
     }
 }
