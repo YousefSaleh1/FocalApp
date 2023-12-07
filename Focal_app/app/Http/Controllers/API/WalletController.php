@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\WalletResource;
 use App\Http\Traits\ApiResponseTrait;
 use App\Models\Processe;
+use App\Models\User;
 use App\Models\UserInfo;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
@@ -30,13 +31,13 @@ class WalletController extends Controller
     {
         $wallet = Wallet::find($id);
         $user = Auth::user();
-        if ($user->role_name == "Admin") {
+        if ($user->role_name == "admin") {
             $wallet->update([
                 'current' => $request->current,
                 'point' => $request->point,
             ]);
             $receiver_id = $wallet->user_id;
-            $receiver_info = UserInfo::where('user_id' , $receiver_id);
+            $receiver_info = UserInfo::where('user_id', $receiver_id)->first();
             Processe::Create([
                 'wallet_id'           => $wallet->id,
                 'contact_number'      =>  0000000,
@@ -44,14 +45,14 @@ class WalletController extends Controller
                 'sender_name'         => "Focal_X",
                 'sender_id_number'    => "1",
                 'payment_method'      => "Deposit",
-                'receipt_number'      => $receiver_info->phone_number,
+                'receipt_number'      => 1000000,
                 'receiver_name'       => $receiver_info->full_name,
                 'receiver_id_number'  => $receiver_id,
                 'address'             => 'XXXXX',
                 'password_vorifi'     => "00000000000",
 
             ]);
-            return $this->customeRespone($wallet, 'The wallet has been added successfully', 200);
+            return $this->customeRespone(new WalletResource($wallet), 'The wallet has been added successfully', 200);
         }
         return $this->customeRespone(null, 'Sorry, you do not have permission for this', 401);
     }

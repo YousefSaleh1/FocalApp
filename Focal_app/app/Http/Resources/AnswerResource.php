@@ -21,7 +21,7 @@ class AnswerResource extends JsonResource
         return [
 
             'id'             => $this->id ,
-            'question'       => new QuestionResource($question),
+            'question_id'    => $this->question_id,
             'email'          => $user->email,
             'answer'         => $this->answer ,
 

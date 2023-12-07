@@ -40,7 +40,7 @@ class JobController extends Controller
         $wallet = Wallet::where('user_id', $user_id)->first();
 
         // $admin = User::where('role_name',["admin"])->first();
-        $admin_wallet = Wallet::where('user_id',1)->first();
+        $admin_wallet = Wallet::where('user_id',2)->first();
 
         if ($request->help == 0 && $wallet->current > 0 && $wallet->current >= 25000) {
 
@@ -84,8 +84,7 @@ class JobController extends Controller
         if (!$job) {
             return $this->customeRespone(null, 'the jop is not found', 400);
         }
-        $visitor =  $job->visit($id);
-        return $this->customeRespone([new JobResource($job), $visitor], 'the is jop', 200);
+        return $this->customeRespone(new JobResource($job), 'the is jop', 200);
     }
 
     /**

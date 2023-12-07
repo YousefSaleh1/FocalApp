@@ -8,6 +8,7 @@ use App\Models\CompanyJob;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BlogResource;
 
 class FilteringController extends Controller
 {
@@ -114,6 +115,6 @@ class FilteringController extends Controller
             $query->whereIn('category_id', $categoryIds);
         })->get();
 
-        return response()->json(['blogs' => $blogs], 200);
+        return response()->json(['blogs' => BlogResource::collection($blogs)], 200);
     }
 }

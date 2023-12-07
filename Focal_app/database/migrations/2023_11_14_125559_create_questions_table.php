@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_job_id')->constrained('company_jobs')->cascadeOnDelete();
             $table->text('question');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

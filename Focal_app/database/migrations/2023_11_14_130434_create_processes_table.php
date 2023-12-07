@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('receiver_name');
             $table->string('receiver_id_number');
             $table->integer('password_vorifi');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -16,10 +16,9 @@ class QuestionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $job = CompanyJob::find($this->company_job_id);
         return [
             'id'      => $this->id ,
-            'job'     => new JobResource($job),
+            'job_id'     => $this->company_job_id,
             'question'=> $this->question ,
 
         ];

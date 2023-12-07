@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('job_requirement');
             $table->enum('status',['Active','Closed','Waiting']);
             $table->text('cancel_desc');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

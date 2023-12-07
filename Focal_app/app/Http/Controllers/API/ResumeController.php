@@ -19,10 +19,15 @@ class ResumeController extends Controller
 
 
 
+
+    public function index(string $jobseeker_id){
+        $resumes = Resume::where('job_seeker_id' , $jobseeker_id)->get();
+        return $this->customeRespone(ResumeResources::collection($resumes) , 'Done!' ,200);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
-
     public function store(ResumeRequest $request)
     {
         $validator_data = $request->validated();
@@ -87,6 +92,6 @@ class ResumeController extends Controller
         }
         $resume->delete();
 
-        return $this->customeRespone(new ResumeResources($resume), 'Resume deleted successfully', 200);
+        return $this->customeRespone('', 'Resume deleted successfully', 200);
     }
 }

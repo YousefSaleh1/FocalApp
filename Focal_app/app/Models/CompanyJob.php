@@ -8,11 +8,12 @@ use App\Models\BusinessOwner;
 use App\Models\Question;
 use Coderflex\Laravisit\Concerns\CanVisit;
 use Coderflex\Laravisit\Concerns\HasVisits;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CompanyJob extends Model implements CanVisit
+class CompanyJob extends Model
 {
     use HasFactory;
-    use HasVisits;
+    use SoftDeletes;
 
 protected $table='company_jobs';
     protected $fillable = [

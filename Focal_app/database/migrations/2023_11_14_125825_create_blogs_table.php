@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('body');
             $table->string('photo')->nullable();
             $table->enum('status',['draft','post']);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

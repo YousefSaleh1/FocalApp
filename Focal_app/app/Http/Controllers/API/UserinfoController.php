@@ -116,6 +116,6 @@ class UserinfoController extends Controller
 
         $user_info->delete();
 
-        return $this->customeRespone( new UserinfoResource($user_info),"User Deleted", 200);
+        return $this->customeRespone('' ,"UserInfo Deleted", 200);
     }
 }

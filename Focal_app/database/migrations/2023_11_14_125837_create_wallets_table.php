@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->decimal('current');
             $table->integer('point');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

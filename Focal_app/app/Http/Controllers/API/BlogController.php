@@ -93,12 +93,12 @@ class BlogController extends Controller
         }
     }
 
-    public function destroy(BlogRequest $blog)
+    public function destroy(Blog $blog)
     {
         if (Auth::user()->id == $blog->user_id || Auth::user()->role_name == ["admin"]) {
             $blog->delete();
 
-            return $this->customeRespone(null , "Blog deleted successfully" , 204);
+            return $this->customeRespone(null , "Blog deleted successfully" , 200);
         }
         return $this->customeRespone(null, 'You can\'t delete', 403);
     }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('provider');
             $table->string('provider_id');
             $table->string('avatar')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

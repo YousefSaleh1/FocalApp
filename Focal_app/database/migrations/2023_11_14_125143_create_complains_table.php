@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('complain_type');
             $table->text('complain_reason');
             $table->string('photoURL')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

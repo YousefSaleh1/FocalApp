@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('blogers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

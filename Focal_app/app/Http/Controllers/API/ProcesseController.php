@@ -25,12 +25,13 @@ class ProcesseController extends Controller
         $sender_wallet = Wallet::where('user_id', $sender_id)->first();
 
 
-        $receiver_id = $request->receiver_id;
-        $receiver = User::find($receiver_id);
+        $receiver_number = $request->contact_number;
+        $receiver_info = UserInfo::where('phone_number' , $receiver_number)->first();
+        $receiver = User::where('id' ,$receiver_info->user_id )->first();
         if(empty($receiver)){
             return  response()->json(['message' => 'Sorry, the receiver does not exist'], 404);
         }
-        $receiver_wallet = Wallet::where('user_id', $receiver_id)->first();
+        $receiver_wallet = Wallet::where('user_id', $receiver->id)->first();
 
         $amonunt = $request->amount;
 

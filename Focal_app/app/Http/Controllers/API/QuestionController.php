@@ -81,7 +81,7 @@ class QuestionController extends Controller
 
     public function get_questions_for_job(string $company_job_id)
     {
-        $questions = Question::where("company_job_id", $company_job_id);
+        $questions = Question::where("company_job_id", $company_job_id)->get();
         return $this->customeRespone(QuestionResource::collection($questions),' successfully', 200);
     }
 }

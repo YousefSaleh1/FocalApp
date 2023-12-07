@@ -31,7 +31,6 @@ class StoreProcessRequest extends FormRequest
             'receiver_name'      =>['required','string','max:255'],
             'receiver_id_number' =>['required','string','max:255'],
             'password_vorifi'    =>['required','numeric'],
-            'receiver_id'        =>['required','integer'],
         ];
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('answer')->nullable();
             $table->foreignId('question_id')->constrained('questions');
             $table->foreignId('user_id')->constrained('users');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -79,7 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/MyBlogs', [BlogController::class, 'MyBlogs']);
     Route::post('/blogs', [BlogController::class, 'store']);
     Route::post('/blogs/{id}', [BlogController::class, 'update']);
-    Route::delete('/blogs/{blog}', [BlogController::class, 'destroy']);
+    Route::delete('/delete_blog/{blog}', [BlogController::class, 'destroy']);
 
     Route::resource('jobs', JobController::class);
     Route::get('closed_jobs ', [JobController::class, 'get_closed_jops']);
@@ -100,10 +100,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('city', CityController::class);
 
-    Route::get('Resume/{id}', [ResumeController::class , 'show']);
-    Route::post('Resume', [ResumeController::class , 'store']);
-    Route::put('Resume/{id}',[ ResumeController::class , 'update']);
-    Route::delete('Resume/{id}', [ResumeController::class , 'destroy']);
+    Route::get('Resumes/{jobseeker_id}', [ResumeController::class, 'index']);
+    Route::get('Resume/{id}', [ResumeController::class, 'show']);
+    Route::post('Resume', [ResumeController::class, 'store']);
+    Route::put('Resume/{id}', [ResumeController::class, 'update']);
+    Route::delete('Resume/{id}', [ResumeController::class, 'destroy']);
 
 
     Route::get('/complains', [ComplainController::class, 'index']);
@@ -128,3 +129,5 @@ Route::get('/blog/{id}', [BlogController::class, 'show']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
+
+Route::get('active_jobs ', [JobController::class, 'get_active_jops']);
