@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('full_name');
             $table->foreignId('city_id')->constrained('cities');
-            $table->string('phone_number');
+            $table->string('phone_number')->unique();
             $table->string('facebook_account')->nullable();
             $table->string('linked_in_account')->nullable();
             $table->string('behanc_account')->nullable();
