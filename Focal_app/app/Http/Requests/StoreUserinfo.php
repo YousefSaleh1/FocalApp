@@ -24,7 +24,7 @@ class StoreUserinfo extends FormRequest
         return [
             'full_name' => 'required|string|max:100',
             'city_id' => 'required|integer',
-            'phone_number' => 'required|integer|unique:user_infos',
+            'phone_number' => 'required|integer',
             'facebook_account' => 'nullable|string',
             'linked_in_account' => 'nullable|string',
             'profile_photo' => 'nullable',
