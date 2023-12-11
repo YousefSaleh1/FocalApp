@@ -23,7 +23,7 @@ class StorBusinessOwnerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "company_name"          =>["required","string","min:3","max:255",Rule::unique("business_owners")->ignore($this->company_name)],
+            "company_name"          =>["required","string","min:3","max:255"],
             "company_field"         =>["required","string"],
             "company_size"          =>["string"],
             "year_founded"          =>["date"],
