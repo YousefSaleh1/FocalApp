@@ -19,7 +19,7 @@ class UserinfoResource extends JsonResource
         return [
             'id'                => $this->id,
             'full_name'         => $this->full_name,
-            'city_id'           => $city->city_name,
+            'city_id'           => new CityResource($city),
             'phone_number'      => $this->phone_number,
             'facebook_account'  => $this->facebook_account,
             'linked_in_account' => $this->linked_in_account,

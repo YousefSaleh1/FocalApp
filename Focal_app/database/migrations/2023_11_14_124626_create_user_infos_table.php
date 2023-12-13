@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('facebook_account')->nullable();
             $table->string('linked_in_account')->nullable();
             $table->string('behanc_account')->nullable();
-            $table->string('profile_photo');
+            $table->string('profile_photo')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

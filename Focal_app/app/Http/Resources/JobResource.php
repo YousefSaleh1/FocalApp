@@ -27,7 +27,7 @@ class JobResource extends JsonResource
             'language'         =>$this->language,
             'age_range'        =>$this->age_range,
             'gender'           =>$this->gender,
-            'city'             =>$city->city_name,
+            'city'             =>new CityResource($city),
             'job_type'         =>$this->job_type,
             'address'          =>$this->address,
             'work_hour'        =>$this->work_hour,
