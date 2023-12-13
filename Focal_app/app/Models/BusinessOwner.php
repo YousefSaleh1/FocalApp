@@ -28,7 +28,7 @@ class BusinessOwner extends Model
     //have many created jobs.
     public function jobs() {
 
-        return $this->hasMany(Job::class, 'business_owner_id');
+        return $this->hasMany(CompanyJob::class, 'business_owner_id');
     }
 
      //This relation, Links the BusinessOwner, with it's own user information.
