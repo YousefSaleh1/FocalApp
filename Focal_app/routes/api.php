@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AnswerController;
+use App\Http\Controllers\API\PasswordRestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\API\JobController;
@@ -41,6 +42,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('login/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('login/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
 
+Route::post('password/email', [PasswordRestController::class, 'sendRestEmail']);
+Route::post('password/reset', [PasswordRestController::class, 'reset'])->middleware('signed')->name('password.reset');
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
@@ -74,6 +78,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/blogers', [BlogerController::class, 'index']);
     Route::get('/bloger/{id}', [BlogerController::class, 'show']);
     Route::delete('/bloger/{id}', [BlogerController::class, 'destroy']);
+    Route::post('/blger_interst', [BlogerController::class, 'blger_interst']);
 
     Route::get('/blogs/{status}', [BlogController::class, 'get_status']);
     Route::get('/MyBlogs', [BlogController::class, 'MyBlogs']);

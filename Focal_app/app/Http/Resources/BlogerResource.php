@@ -14,7 +14,7 @@ class BlogerResource extends JsonResource
         $userInfo = $user->user_info;
         return [
             'id'               => $this->id,
-            'freelancer infos' => new UserinfoResource($userInfo),
+            'bloger infos'     => new UserinfoResource($userInfo),
         ];
     }
 }

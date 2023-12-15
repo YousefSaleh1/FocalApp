@@ -19,4 +19,10 @@ class Category extends Model
 
         return $this->belongsToMany(Blog::class, 'category_blog');
     }
+
+
+    public function blogers()
+    {
+        return $this->belongsToMany(Bloger::class, 'bloger_intersts');
+    }
 }
